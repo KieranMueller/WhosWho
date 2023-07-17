@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import fetchFromSpotify, { request } from '../../services/api'
 import { HttpClient } from '@angular/common/http'
+import { GeneralService } from '../general.service'
 
 const AUTH_ENDPOINT =
     'https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token'
@@ -12,7 +13,8 @@ const TOKEN_KEY = 'whos-who-access-token'
     styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    constructor(private http: HttpClient) {}
+    static token: string
+    constructor(private http: HttpClient, private service: GeneralService) {}
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
     songs: number[] =[2,3,4,5,6,7,8]
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
                 console.log('Token found in localstorage')
                 this.authLoading = false
                 this.token = storedToken.value
+                this.service.token = storedToken.value
                 this.loadGenres(storedToken.value)
                 return
             }
@@ -46,6 +49,7 @@ export class HomeComponent implements OnInit {
             localStorage.setItem(TOKEN_KEY, JSON.stringify(newToken))
             this.authLoading = false
             this.token = newToken.value
+            this.service.token = newToken.value
             this.loadGenres(newToken.value)
         })
     }

@@ -10,6 +10,7 @@
             {{ genre }}
         </option>
     </select>
+
     
     <br>
    
@@ -23,5 +24,7 @@
         <option *ngFor="let artist of artists" [value]="artist">{{ artist }}</option>
       </select>
     <br>
+    <button (click)="testApi()">Click</button>
     <button routerLink="/game">Go to game></button>
+
 </div>
