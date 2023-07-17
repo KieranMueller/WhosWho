@@ -1,11 +1,13 @@
 <div class="container">
-    <button routerLink="">Home</button>
-    <button (click)="getSongs()">click</button>
-    <audio
-        *ngIf="availableSongs.length > 0"
-        controls
-        [src]="availableSongs[randomIndex].preview_url"></audio>
-    <p>{{ availableSongs[randomIndex].preview_url | json }}</p>
+    <div class="top-strip">
+        <button routerLink="">Home</button>
+        <button (click)="getSongs()">{{ hitPlay ? 'Next' : 'Play' }}</button>
+        <audio
+            autoplay
+            *ngIf="availableSongs.length > 0"
+            controls
+            [src]="availableSongs[randomIndex].preview_url"></audio>
+    </div>
     <div class="image-container" *ngIf="artists.length > 2">
         <button
             [disabled]="guessed"
@@ -26,7 +28,13 @@
             <p>{{ artists[2].name }}</p>
         </button>
     </div>
-    <div *ngIf="isCorrect">
-        <h1>NICE! YOU GOT IT RIGHT</h1>
+    <div *ngIf="isCorrect" class="win-div">
+        <h1>Correct! ✅</h1>
+    </div>
+    <div *ngIf="isWrong" class="win-div">
+        <h1>Incorrect ❌</h1>
+    </div>
+    <div class="score-div">
+        <h2>Score: {{ totalScore }} / {{ totalElapsed }}</h2>
     </div>
 </div>

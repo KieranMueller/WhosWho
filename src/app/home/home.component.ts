@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
     constructor(private http: HttpClient, private service: GeneralService) {}
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
-    songs: number[] =[2,3,4,5,6,7,8]
-    artists: number[] =[2,3,4,5,6,7,8]
+    songs: number[] = [2, 3, 4, 5, 6, 7, 8]
+    artists: number[] = [2, 3, 4, 5, 6, 7, 8]
     selectedGenre: String = ''
     selectedSong: String = ''
     selectedArtist: String = ''
@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit {
 
     setGenre(selectedGenre: any) {
         this.selectedGenre = selectedGenre
+        this.service.selectedGenre = selectedGenre
         console.log(this.selectedGenre)
         console.log(TOKEN_KEY)
     }

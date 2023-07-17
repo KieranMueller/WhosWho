@@ -1,7 +1,26 @@
 .container {
-    width: 98vw;
-    height: 98vh;
+    width: 100vw;
+    height: 100vh;
     background: rgba(240, 144, 144, 0.397);
+}
+
+.top-strip {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-strip > button {
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    cursor: pointer;
+}
+
+.top-strip * {
+    margin: 20px;
 }
 
 img {
@@ -13,6 +32,7 @@ img {
 
 .image-container {
     display: flex;
+    justify-content: center;
 }
 
 .image-container > button {
@@ -20,4 +40,16 @@ img {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+}
+
+.win-div {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.score-div {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
 }
