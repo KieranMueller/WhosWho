@@ -15,6 +15,9 @@ export class GameComponent implements OnInit {
     guessed: boolean = false
     correctArtistName: string = ''
     isWrong: boolean = false
+    hitPlay: boolean = false
+    totalScore: number = 0
+    totalElapsed: number = 0
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
@@ -36,8 +39,10 @@ export class GameComponent implements OnInit {
     getSongs() {
         return this.http
             .get(
-                'https://api.spotify.com/v1/search?q=genre%3Arock&type=track',
-                { headers: { Authorization: `Bearer ${this.service.token}` } }
+                'https://api.spotify.com/v1/search?q=genre%3Arock&type=track&limit=50&include_external=audio',
+                {
+                    headers: { Authorization: `Bearer ${this.service.token}` },
+                }
             )
             .subscribe({
                 next: (data: any) => {
@@ -45,6 +50,8 @@ export class GameComponent implements OnInit {
                     this.isCorrect = false
                     this.isWrong = false
                     this.guessed = false
+                    this.hitPlay = true
+                    this.totalElapsed++
                     this.availableSongs = []
                     for (let song of data.tracks.items)
                         if (song.preview_url != null)
@@ -65,7 +72,12 @@ export class GameComponent implements OnInit {
 
     checkArtistClicked(e: any) {
         this.guessed = true
-        if (e === this.correctArtistName) this.isCorrect = true
-        else this.isWrong = true
+        if (e === this.correctArtistName) {
+            this.isCorrect = true
+            this.totalScore++
+        } else this.isWrong = true
+        setTimeout(() => {
+            this.getSongs()
+        }, 700)
     }
 }
