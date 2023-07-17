@@ -1,9 +1,14 @@
 <div class="container">
     <div class="top-strip">
         <button routerLink="">Home</button>
-        <button (click)="getSongs()">{{ hitPlay ? 'Skip' : 'Play' }}</button>
+        <button (click)="getSongs()">
+            {{ hitPlay ? 'Skip Track' : 'Play' }}
+        </button>
+        <button (click)="isAutoplay = !isAutoplay">
+            Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
+        </button>
         <audio
-            autoplay
+            [autoplay]="isAutoplay"
             *ngIf="availableSongs.length > 0"
             controls
             [src]="availableSongs[randomIndex].preview_url"></audio>
