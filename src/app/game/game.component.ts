@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
-import { Observable } from 'rxjs'
+
+// TO FIX! Correct answer is always on the left lol
 
 @Component({
     selector: 'app-game',
@@ -19,6 +20,7 @@ export class GameComponent implements OnInit, OnDestroy {
     hitPlay: boolean = false
     totalScore: number = 0
     totalElapsed: number = -1
+    isAutoplay: boolean = false
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
