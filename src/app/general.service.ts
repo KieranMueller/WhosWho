@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core'
 export class GeneralService {
     token: string = ''
     selectedGenre: string = ''
+    numArtists: number = 2
 
     constructor() {}
 }

@@ -1,18 +1,28 @@
 .container {
     width: 100vw;
     height: 100vh;
-    background: rgba(240, 144, 144, 0.397);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .top-strip {
+    width: 70vw;
     display: flex;
     margin: 10px;
     justify-content: center;
     align-items: center;
+    border: 1px solid grey;
+    border-radius: 40px;
+    padding: 20px;
 }
 
 .top-strip > button {
-    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
     height: 40px;
     border-radius: 20px;
     border: 1px solid grey;
@@ -40,6 +50,10 @@ img {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.41);
+    border-radius: 10px;
 }
 
 .win-div {

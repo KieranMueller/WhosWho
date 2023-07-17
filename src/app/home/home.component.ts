@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     artists: number[] = [2, 3, 4, 5, 6, 7, 8]
     selectedGenre: String = ''
     selectedSong: String = ''
-    selectedArtist: String = ''
+    selectedArtist: number = 2
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
@@ -83,12 +83,19 @@ export class HomeComponent implements OnInit {
         console.log(this.selectedArtist)
         console.log(TOKEN_KEY)
     }
+
     testApi() {
         return this.http
             .get(
                 'https://api.spotify.com/v1/search?q=genre%3Ametal&type=track',
                 { headers: { Authorization: `Bearer ${this.token}` } }
             )
-            .subscribe(data => console.log(data))
+            .subscribe(data => {
+                console.log(data)
+            })
+    }
+
+    syncWithService() {
+        this.service.numArtists = this.selectedArtist
     }
 }

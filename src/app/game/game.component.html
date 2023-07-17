@@ -1,20 +1,30 @@
 <div class="container">
     <div class="top-strip">
         <button routerLink="">Home</button>
-        <button (click)="getSongs()">{{ hitPlay ? 'Next' : 'Play' }}</button>
+        <button (click)="getSongs()">
+            {{ hitPlay ? 'Skip Track' : 'Play' }}
+        </button>
+        <button (click)="isAutoplay = !isAutoplay">
+            Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
+        </button>
         <audio
-            autoplay
+            [autoplay]="isAutoplay"
             *ngIf="availableSongs.length > 0"
             controls
             [src]="availableSongs[randomIndex].preview_url"></audio>
     </div>
-    <div class="image-container" *ngIf="artists.length > 2">
-        <ng-container *ngFor="let artist of artists; let i = index">
-            <button [disabled]="guessed" (click)="checkArtistClicked(artist.name)">
-              <img [src]="artist.images[0].url" [alt]="artist.name" />
-              <p>{{ artist.name }}</p>
-            </button>
-          </ng-container>
+
+   
+
+    <div class="image-container" *ngIf="artists.length > 0">
+        <button
+            *ngFor="let artist of artists"
+            [disabled]="guessed"
+            (click)="checkArtistClicked(artist.name)">
+            <img [src]="artist.images[0].url" alt="..." />
+            <p>{{ artist.name }}</p>
+        </button>
+
     </div>
     <div *ngIf="isCorrect" class="win-div">
         <h1>Correct! ✅</h1>
@@ -23,6 +33,8 @@
         <h1>Incorrect ❌</h1>
     </div>
     <div class="score-div">
-        <h2>Score: {{ totalScore }} / {{ totalElapsed }}</h2>
+        <h2>
+            Score: {{ totalScore }} / {{ totalElapsed > -1 ? totalElapsed : 0 }}
+        </h2>
     </div>
 </div>
