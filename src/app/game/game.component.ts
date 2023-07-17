@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { GeneralService } from '../general.service'
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: any = []
@@ -20,6 +20,9 @@ export class GameComponent {
     totalElapsed: number = -1
 
     constructor(private http: HttpClient, private service: GeneralService) {}
+    ngOnInit(): void {
+        this.getSongs()
+    }
 
     getSongs() {
         return this.http
@@ -29,13 +32,7 @@ export class GameComponent {
             )
             .subscribe({
                 next: (data: any) => {
-                    this.artists = []
-                    this.isCorrect = false
-                    this.isWrong = false
-                    this.guessed = false
-                    this.hitPlay = true
-                    this.totalElapsed++
-                    this.availableSongs = []
+                    this.resetStuff()
                     for (let song of data.tracks.items)
                         if (song.preview_url != null)
                             this.availableSongs.push(song)
@@ -46,15 +43,25 @@ export class GameComponent {
                     console.log(this.randomIndex)
                     this.correctArtistName =
                         this.availableSongs[this.randomIndex].artists[0].name
-                    this.handleWrongArtists(this.service.numArtists)
+                    this.handleArtists(this.service.numArtists)
                 },
             })
     }
 
-    handleWrongArtists(num: number = 2) {
-        this.getArtist(this.availableSongs[this.randomIndex].artists[0].id)
-        for (let i = 1; i < num; i++) {
-            this.getArtist(
+    resetStuff(): void {
+        this.artists = []
+        this.isCorrect = false
+        this.isWrong = false
+        this.guessed = false
+        this.hitPlay = true
+        this.totalElapsed++
+        this.availableSongs = []
+    }
+
+    handleArtists(num: number = 2) {
+        this.pushArtist(this.availableSongs[this.randomIndex].artists[0].id)
+        for (let i = 0; i < num - 1; i++) {
+            this.pushArtist(
                 this.availableSongs[
                     Math.floor(Math.random() * this.availableSongs.length)
                 ].artists[0].id
@@ -62,7 +69,7 @@ export class GameComponent {
         }
     }
 
-    getArtist(id: string) {
+    pushArtist(id: string) {
         console.log(this.artists)
         this.http
             .get(`https://api.spotify.com/v1/artists/${id}`, {
@@ -81,6 +88,6 @@ export class GameComponent {
         } else this.isWrong = true
         setTimeout(() => {
             this.getSongs()
-        }, 700)
+        }, 200)
     }
 }

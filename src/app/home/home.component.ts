@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     artists: number[] = [2, 3, 4, 5, 6, 7, 8]
     selectedGenre: String = ''
     selectedSong: String = ''
-    selectedArtist: number = 0
+    selectedArtist: number = 2
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
