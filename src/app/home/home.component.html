@@ -15,7 +15,9 @@
 
     Number of Songs:
     <select [(ngModel)]="selectedSong">
-        <option *ngFor="let song of songs" [value]="song">{{ song }}</option>
+        <option *ngFor="let song of songs" [value]="song">
+            {{ song }}
+        </option>
     </select>
     <br />
     Number of Artists:

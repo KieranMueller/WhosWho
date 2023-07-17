@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 @Component({
@@ -8,6 +8,8 @@ import { GeneralService } from '../general.service'
     styleUrls: ['./game.component.css'],
 })
 export class GameComponent {
+    @Input() selectedSong: any;
+    @Input() selectedArtist: any;
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: any = []

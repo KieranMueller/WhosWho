@@ -9,24 +9,12 @@
             [src]="availableSongs[randomIndex].preview_url"></audio>
     </div>
     <div class="image-container" *ngIf="artists.length > 2">
-        <button
-            [disabled]="guessed"
-            (click)="checkArtistClicked(artists[0].name)">
-            <img [src]="artists[0].images[0].url" [alt]="artists[0].name" />
-            <p>{{ artists[0].name }}</p>
-        </button>
-        <button
-            [disabled]="guessed"
-            (click)="checkArtistClicked(artists[1].name)">
-            <img [src]="artists[1].images[0].url" [alt]="artists[1].name" />
-            <p>{{ artists[1].name }}</p>
-        </button>
-        <button
-            [disabled]="guessed"
-            (click)="checkArtistClicked(artists[2].name)">
-            <img [src]="artists[2].images[0].url" [alt]="artists[2].name" />
-            <p>{{ artists[2].name }}</p>
-        </button>
+        <ng-container *ngFor="let artist of artists; let i = index">
+            <button [disabled]="guessed" (click)="checkArtistClicked(artist.name)">
+              <img [src]="artist.images[0].url" [alt]="artist.name" />
+              <p>{{ artist.name }}</p>
+            </button>
+          </ng-container>
     </div>
     <div *ngIf="isCorrect" class="win-div">
         <h1>Correct! ✅</h1>
