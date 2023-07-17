@@ -13,6 +13,8 @@ export class GameComponent implements OnInit {
     artists: any = []
     isCorrect: boolean = false
     guessed: boolean = false
+    correctArtistName: string = ''
+    isWrong: boolean = false
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
@@ -39,7 +41,10 @@ export class GameComponent implements OnInit {
             )
             .subscribe({
                 next: (data: any) => {
-                    console.log(data)
+                    this.artists = []
+                    this.isCorrect = false
+                    this.isWrong = false
+                    this.guessed = false
                     this.availableSongs = []
                     for (let song of data.tracks.items)
                         if (song.preview_url != null)
@@ -47,8 +52,8 @@ export class GameComponent implements OnInit {
                     this.randomIndex = Math.floor(
                         Math.random() * this.availableSongs.length
                     )
-                    console.log(this.availableSongs)
-                    console.log(this.randomIndex)
+                    this.correctArtistName =
+                        this.availableSongs[this.randomIndex].artists[0].name
                     this.getArtist(
                         this.availableSongs[this.randomIndex].artists[0].id
                     )
@@ -60,6 +65,7 @@ export class GameComponent implements OnInit {
 
     checkArtistClicked(e: any) {
         this.guessed = true
-        console.log(e)
+        if (e === this.correctArtistName) this.isCorrect = true
+        else this.isWrong = true
     }
 }
