@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit {
 
     setGenre(selectedGenre: any) {
         this.selectedGenre = selectedGenre
+        this.service.selectedGenre = selectedGenre
         console.log(this.selectedGenre)
         console.log(TOKEN_KEY)
     }

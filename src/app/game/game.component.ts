@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { GeneralService } from '../general.service'
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: any = []
@@ -21,25 +21,20 @@ export class GameComponent implements OnInit {
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
-    ngOnInit(): void {}
-
     getArtist(id: string) {
         return this.http
             .get(`https://api.spotify.com/v1/artists/${id}`, {
                 headers: { Authorization: `Bearer ${this.service.token}` },
             })
             .subscribe({
-                next: data => {
-                    console.log(data)
-                    this.artists.push(data)
-                },
+                next: data => this.artists.push(data),
             })
     }
 
     getSongs() {
         return this.http
             .get(
-                'https://api.spotify.com/v1/search?q=genre%3Arock&type=track&limit=50&include_external=audio',
+                `https://api.spotify.com/v1/search?q=genre%3A${this.service.selectedGenre}&type=track&limit=50&include_external=audio`,
                 {
                     headers: { Authorization: `Bearer ${this.service.token}` },
                 }
