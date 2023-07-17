@@ -15,7 +15,11 @@ export class HomeComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
+    songs: number[] =[2,3,4,5,6,7,8]
+    artists: number[] =[2,3,4,5,6,7,8]
     selectedGenre: String = ''
+    selectedSong: String = ''
+    selectedArtist: String = ''
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
@@ -63,6 +67,17 @@ export class HomeComponent implements OnInit {
         console.log(TOKEN_KEY)
     }
 
+    setSong(selectedSong: any) {
+        this.selectedSong = selectedSong
+        console.log(this.selectedSong)
+        console.log(TOKEN_KEY)
+    }
+
+    setArtist(selectedArtist: any) {
+        this.selectedArtist = selectedArtist
+        console.log(this.selectedArtist)
+        console.log(TOKEN_KEY)
+    }
     testApi() {
         return this.http
             .get(

@@ -10,5 +10,18 @@
             {{ genre }}
         </option>
     </select>
-    <button (click)="testApi()">Click</button>
+    
+    <br>
+   
+    Number of Songs:
+    <select [(ngModel)]="selectedSong">
+        <option *ngFor="let song of songs" [value]="song">{{ song }}</option>
+      </select>
+    <br>
+    Number of Artists:
+    <select [(ngModel)]="selectedArtist">
+        <option *ngFor="let artist of artists" [value]="artist">{{ artist }}</option>
+      </select>
+    <br>
+    <button routerLink="/game">Go to game></button>
 </div>
