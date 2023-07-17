@@ -1,4 +1,32 @@
 <div class="container">
     <button routerLink="">Home</button>
     <button (click)="getSongs()">click</button>
+    <audio
+        *ngIf="availableSongs.length > 0"
+        controls
+        [src]="availableSongs[randomIndex].preview_url"></audio>
+    <p>{{ availableSongs[randomIndex].preview_url | json }}</p>
+    <div class="image-container" *ngIf="artists.length > 2">
+        <button
+            [disabled]="guessed"
+            (click)="checkArtistClicked(artists[0].name)">
+            <img [src]="artists[0].images[0].url" [alt]="artists[0].name" />
+            <p>{{ artists[0].name }}</p>
+        </button>
+        <button
+            [disabled]="guessed"
+            (click)="checkArtistClicked(artists[1].name)">
+            <img [src]="artists[1].images[0].url" [alt]="artists[1].name" />
+            <p>{{ artists[1].name }}</p>
+        </button>
+        <button
+            [disabled]="guessed"
+            (click)="checkArtistClicked(artists[2].name)">
+            <img [src]="artists[2].images[0].url" [alt]="artists[2].name" />
+            <p>{{ artists[2].name }}</p>
+        </button>
+    </div>
+    <div *ngIf="isCorrect">
+        <h1>NICE! YOU GOT IT RIGHT</h1>
+    </div>
 </div>
