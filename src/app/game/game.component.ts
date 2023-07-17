@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
+import { Observable } from 'rxjs'
 
 @Component({
     selector: 'app-game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: any = []
@@ -20,6 +21,10 @@ export class GameComponent implements OnInit {
     totalElapsed: number = -1
 
     constructor(private http: HttpClient, private service: GeneralService) {}
+
+    ngOnDestroy(): void {
+        this.getSongs().unsubscribe()
+    }
     ngOnInit(): void {
         this.getSongs()
     }
@@ -36,11 +41,9 @@ export class GameComponent implements OnInit {
                     for (let song of data.tracks.items)
                         if (song.preview_url != null)
                             this.availableSongs.push(song)
-                    console.log(this.availableSongs)
                     this.randomIndex = Math.floor(
                         Math.random() * this.availableSongs.length
                     )
-                    console.log(this.randomIndex)
                     this.correctArtistName =
                         this.availableSongs[this.randomIndex].artists[0].name
                     this.handleArtists(this.service.numArtists)
@@ -58,7 +61,7 @@ export class GameComponent implements OnInit {
         this.availableSongs = []
     }
 
-    handleArtists(num: number = 2) {
+    handleArtists(num: number = 2): void {
         this.pushArtist(this.availableSongs[this.randomIndex].artists[0].id)
         for (let i = 0; i < num - 1; i++) {
             this.pushArtist(
@@ -69,8 +72,7 @@ export class GameComponent implements OnInit {
         }
     }
 
-    pushArtist(id: string) {
-        console.log(this.artists)
+    pushArtist(id: string): void {
         this.http
             .get(`https://api.spotify.com/v1/artists/${id}`, {
                 headers: { Authorization: `Bearer ${this.service.token}` },
@@ -80,7 +82,7 @@ export class GameComponent implements OnInit {
             })
     }
 
-    checkArtistClicked(e: any) {
+    checkArtistClicked(e: any): void {
         this.guessed = true
         if (e === this.correctArtistName) {
             this.isCorrect = true
