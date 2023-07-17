@@ -1,14 +1,14 @@
 <div class="container">
     <div class="top-strip">
         <button routerLink="">Home</button>
-        <button (click)="getSongs()">{{ hitPlay ? 'Next' : 'Play' }}</button>
+        <button (click)="getSongs()">{{ hitPlay ? 'Skip' : 'Play' }}</button>
         <audio
             autoplay
             *ngIf="availableSongs.length > 0"
             controls
             [src]="availableSongs[randomIndex].preview_url"></audio>
     </div>
-    <div class="image-container" *ngIf="artists.length > 2">
+    <div class="image-container" *ngIf="artists.length > 0">
         <button
             *ngFor="let artist of artists"
             [disabled]="guessed"
