@@ -1,30 +1,36 @@
-<div *ngIf="authLoading || configLoading">Loading...</div>
-<div *ngIf="!authLoading && !configLoading">
-    Genre:
-    <select
-        [(ngModel)]="selectedGenre"
-        (ngModelChange)="setGenre($event)"
-        id="genre-select">
-        <option [value]=""></option>
-        <option [value]="genre" *ngFor="let genre of genres">
-            {{ genre }}
-        </option>
-    </select>
+<div class="container">
+    <div *ngIf="authLoading || configLoading">Loading...</div>
+    <div *ngIf="!authLoading && !configLoading">
+        Genre:
+        <select
+            [(ngModel)]="selectedGenre"
+            (ngModelChange)="setGenre($event)"
+            id="genre-select">
+            <option [value]=""></option>
+            <option [value]="genre" *ngFor="let genre of genres">
+                {{ genre }}
+            </option>
+        </select>
 
-    <br />
+        <br />
 
-    Number of Songs:
-    <select [(ngModel)]="selectedSong">
-        <option *ngFor="let song of songs" [value]="song">{{ song }}</option>
-    </select>
-    <br />
-    Number of Artists:
-    <select [(ngModel)]="selectedArtist">
-        <option *ngFor="let artist of artists" [value]="artist">
-            {{ artist }}
-        </option>
-    </select>
-    <br />
-    <button (click)="testApi()">Click</button>
-    <button (click)="syncWithService()" routerLink="/game">Go to game></button>
+        Number of Songs:
+        <select [(ngModel)]="selectedSong">
+            <option *ngFor="let song of songs" [value]="song">
+                {{ song }}
+            </option>
+        </select>
+        <br />
+        Number of Artists:
+        <select [(ngModel)]="selectedArtist">
+            <option *ngFor="let artist of artists" [value]="artist">
+                {{ artist }}
+            </option>
+        </select>
+        <br />
+        <button (click)="testApi()">Click</button>
+        <button (click)="syncWithService()" routerLink="/game">
+            Go to game>
+        </button>
+    </div>
 </div>
