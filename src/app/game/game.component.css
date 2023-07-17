@@ -1,5 +1,23 @@
 .container {
     width: 98vw;
     height: 98vh;
-    background: rgb(255, 233, 207);
+    background: rgba(240, 144, 144, 0.397);
+}
+
+img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin: 10px;
+}
+
+.image-container {
+    display: flex;
+}
+
+.image-container > button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 }
