@@ -17,10 +17,10 @@ export class HomeComponent implements OnInit {
     constructor(private http: HttpClient, private service: GeneralService) {}
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
-    songs: number[] = [2, 3, 4, 5, 6, 7, 8]
+    songs: number[] = [1, 2, 3, 4, 5, 6, 7, 8]
     artists: number[] = [2, 3, 4, 5, 6, 7, 8]
     selectedGenre: String = ''
-    selectedSong: String = ''
+    selectedSong: number = 1
     selectedArtist: number = 2
     authLoading: boolean = false
     configLoading: boolean = false
@@ -97,5 +97,6 @@ export class HomeComponent implements OnInit {
 
     syncWithService() {
         this.service.numArtists = this.selectedArtist
+        this.service.numSongs = this.selectedSong
     }
 }
