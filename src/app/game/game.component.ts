@@ -12,8 +12,7 @@ import { GeneralService } from '../general.service'
 })
 
 export class GameComponent implements OnInit, OnDestroy {
-    @Input() selectedSong: any;
-    @Input() selectedArtist: any;
+   
 
 
 

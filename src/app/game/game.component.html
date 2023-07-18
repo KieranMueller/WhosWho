@@ -5,7 +5,7 @@
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
         <button (click)="isAutoplay = !isAutoplay">
-            Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
+            Autoplay {{ isAutoplay ? 'ON' : 'OFF' }}
         </button>
 
         <div *ngIf="availableSongs.length > 0">
