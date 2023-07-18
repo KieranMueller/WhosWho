@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
-// TO DO! Add songs based on home page selection
 
 @Component({
     selector: 'app-game',
@@ -17,28 +16,43 @@ export class GameComponent implements OnInit, OnDestroy {
     isCorrect: boolean = false
     guessed: boolean = false
     correctArtistName: string = ''
+    correctArtistData: any = {}
     isWrong: boolean = false
     hitPlay: boolean = false
     totalScore: number = 0
     totalElapsed: number = -1
     isAutoplay: boolean = false
     numSongs: number = 1
-    numSongsArr: Array<number> = []
+    songsArr: Array<any> = []
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
+        this.handleSongs('').unsubscribe()
     }
 
     ngOnInit(): void {
         this.numSongs = this.service.numSongs
-        this.makeSongsArrIterable()
         this.getSongs()
     }
 
-    makeSongsArrIterable(): void {
-        for (let i = 0; i < this.numSongs; i++) this.numSongsArr.push(1)
+    handleSongs(artistId: string) {
+        return this.http
+            .get(
+                `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`,
+                {
+                    headers: { Authorization: `Bearer ${this.service.token}` },
+                }
+            )
+            .subscribe({
+                next: (obj: any) => {
+                    for (let i = 0; i < this.numSongs; i++) {
+                        this.songsArr.push(obj.tracks[i])
+                    }
+                },
+                error: e => console.log(e),
+            })
     }
 
     getSongs() {
@@ -58,12 +72,17 @@ export class GameComponent implements OnInit, OnDestroy {
                     )
                     this.correctArtistName =
                         this.availableSongs[this.randomIndex].artists[0].name
+                    this.correctArtistData =
+                        this.availableSongs[this.randomIndex]
+                    this.handleSongs(this.correctArtistData.artists[0].id)
                     this.handleArtists(this.service.numArtists)
                 },
+                error: e => console.log(e),
             })
     }
 
     resetStuff(): void {
+        this.songsArr = []
         this.artists = []
         this.availableSongs = []
         this.isCorrect = false
@@ -96,13 +115,11 @@ export class GameComponent implements OnInit, OnDestroy {
                         0,
                         data
                     )
-                    console.log(this.artists)
                 },
             })
     }
 
     checkArtistClicked(e: any): void {
-        console.log(this.artists)
         this.guessed = true
         if (e === this.correctArtistName) {
             this.isCorrect = true
@@ -111,5 +128,9 @@ export class GameComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.getSongs()
         }, 200)
+    }
+
+    testStuff() {
+        console.log('test')
     }
 }
