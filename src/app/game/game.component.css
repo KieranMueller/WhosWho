@@ -6,6 +6,56 @@
     margin-top: 10px;
 }
 
+.end-game-modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.815);
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-over-container {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+}
+
+.game-over-container * {
+    text-align: center;
+}
+
+.game-over-btn {
+    width: fit-content;
+    padding: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    animation-name: end;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    margin: 10px;
+}
+
+@keyframes end {
+    25% {
+        scale: 1.1;
+        translate: -10px;
+        background-color: rgb(255, 164, 164);
+    }
+    50% {
+        scale: 1;
+    }
+    75% {
+        translate: 10px;
+        scale: 1.1;
+        background-color: rgb(255, 192, 192);
+    }
+}
+
 .top-bar {
     display: flex;
     justify-content: space-around;
