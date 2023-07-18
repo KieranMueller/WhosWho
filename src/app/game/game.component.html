@@ -1,4 +1,15 @@
 <div class="container">
+    <div class="top-bar">
+        <div>
+            <h4>Lives Remaining:&nbsp;&nbsp;</h4>
+            <h1 *ngFor="let live of livesRemaining">♪</h1>
+        </div>
+        <h4>{{ selectedGenre ? selectedGenre : 'No Genre Selected' }}</h4>
+        <h4>
+            Score: {{ totalScore }} / {{ totalElapsed > -1 ? totalElapsed : 0 }}
+        </h4>
+        <button (click)="testStuff()">Test</button>
+    </div>
     <div class="top-strip">
         <button routerLink="">Home</button>
         <button (click)="getSongs()">
