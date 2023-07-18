@@ -1,4 +1,5 @@
 <div class="container">
+    <button (click)="testStuff()">Test Btn</button>
     <div class="top-strip">
         <button routerLink="">Home</button>
         <button (click)="getSongs()">
@@ -10,10 +11,10 @@
 
         <div *ngIf="availableSongs.length > 0">
             <audio
-                *ngFor="let item of numSongsArr"
+                *ngFor="let song of songsArr"
                 [autoplay]="isAutoplay"
                 controls
-                [src]="availableSongs[randomIndex].preview_url"></audio>
+                [src]="song.preview_url"></audio>
         </div>
     </div>
     <div class="image-container" *ngIf="artists.length > 0">
