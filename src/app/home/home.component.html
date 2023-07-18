@@ -1,20 +1,16 @@
 <div class="container">
     <div *ngIf="authLoading || configLoading">Loading...</div>
     <div *ngIf="!authLoading && !configLoading">
+        
         Genre:
         <select
-            [(ngModel)]="selectedGenre"
-            (ngModelChange)="setGenre($event)"
-            id="genre-select">
-            <option [value]=""></option>
-            <option [value]="genre" *ngFor="let genre of genres">
-                {{ genre }}
-            </option>
-        </select>
-
+        [(ngModel)]="selectedGenre"
+        (ngModelChange)="setGenre($event)"
+        id="genre-select">
+        <option value="">Select a genre</option>
+        <option [value]="genre" *ngFor="let genre of genres">{{ genre }}</option>
+      </select>
         <br />
-
-
         Number of Songs:
         <select [(ngModel)]="selectedSong">
             <option *ngFor="let song of songs" [value]="song">
@@ -36,8 +32,8 @@
             </option>
         </select>
         <br />
-        <button (click)="testApi()">Click</button>
-        <button (click)="syncWithService()" routerLink="/game">
+       
+        <button (click)="syncWithService()" routerLink="/game" id="goToGame" [disabled]="selectedGenre === ''">
             Go to game>
         </button>
     </div>
