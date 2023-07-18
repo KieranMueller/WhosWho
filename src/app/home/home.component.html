@@ -29,6 +29,13 @@
             </option>
         </select>
         <br />
+        Amount of Guesses/Difficulty:
+        <select [(ngModel)]="selectedGuesses">
+            <option *ngFor="let guess of guesses" [value]="guess">
+                {{ guess }}
+            </option>
+        </select>
+        <br />
         <button (click)="testApi()">Click</button>
         <button (click)="syncWithService()" routerLink="/game">
             Go to game>
