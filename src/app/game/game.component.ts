@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
-// Add end game modal/ disable everything, set timeout route back to home page?
 
 @Component({
     selector: 'app-game',
@@ -44,25 +43,6 @@ export class GameComponent implements OnInit, OnDestroy {
         this.getSongs()
     }
 
-    handleSongs(artistId: string) {
-        return this.http
-            .get(
-                `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`,
-                {
-                    headers: { Authorization: `Bearer ${this.service.token}` },
-                }
-            )
-            .subscribe({
-                next: (obj: any) => {
-                    for (let i = 0; i < this.numSongs; i++) {
-                        if (obj.tracks[i].preview_url != null)
-                            this.songsArr.push(obj.tracks[i])
-                    }
-                },
-                error: e => console.log(e),
-            })
-    }
-
     getSongs() {
         return this.http
             .get(
@@ -84,6 +64,26 @@ export class GameComponent implements OnInit, OnDestroy {
                         this.availableSongs[this.randomIndex]
                     this.handleSongs(this.correctArtistData.artists[0].id)
                     this.handleArtists(this.service.numArtists)
+                },
+                error: e => console.log(e),
+            })
+    }
+
+    handleSongs(artistId: string) {
+        return this.http
+            .get(
+                `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`,
+                {
+                    headers: { Authorization: `Bearer ${this.service.token}` },
+                }
+            )
+            .subscribe({
+                next: (obj: any) => {
+                    this.songsArr.push(this.correctArtistData)
+                    for (let i = 0; i < this.numSongs - 1; i++) {
+                        if (obj.tracks[i].preview_url != null)
+                            this.songsArr.push(obj.tracks[i])
+                    }
                 },
                 error: e => console.log(e),
             })
@@ -157,6 +157,11 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     testStuff() {
+        console.log('available songs')
+        console.log(this.availableSongs)
+        console.log('song arr')
         console.log(this.songsArr)
+        console.log('correct artist data')
+        console.log(this.correctArtistData)
     }
 }
