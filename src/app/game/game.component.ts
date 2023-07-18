@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
-// TO FIX! Correct answer is always on the left lol
+// TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
+// TO DO! Add songs based on home page selection
 
 @Component({
     selector: 'app-game',
@@ -12,7 +13,7 @@ import { GeneralService } from '../general.service'
 export class GameComponent implements OnInit, OnDestroy {
     availableSongs: Array<any> = []
     randomIndex: number = 0
-    artists: any = []
+    artists: Array<any> = []
     isCorrect: boolean = false
     guessed: boolean = false
     correctArtistName: string = ''
@@ -21,14 +22,23 @@ export class GameComponent implements OnInit, OnDestroy {
     totalScore: number = 0
     totalElapsed: number = -1
     isAutoplay: boolean = false
+    numSongs: number = 1
+    numSongsArr: Array<number> = []
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
     }
+
     ngOnInit(): void {
+        this.numSongs = this.service.numSongs
+        this.makeSongsArrIterable()
         this.getSongs()
+    }
+
+    makeSongsArrIterable(): void {
+        for (let i = 0; i < this.numSongs; i++) this.numSongsArr.push(1)
     }
 
     getSongs() {
@@ -55,12 +65,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
     resetStuff(): void {
         this.artists = []
+        this.availableSongs = []
         this.isCorrect = false
         this.isWrong = false
         this.guessed = false
         this.hitPlay = true
         this.totalElapsed++
-        this.availableSongs = []
     }
 
     handleArtists(num: number = 2): void {
@@ -80,11 +90,19 @@ export class GameComponent implements OnInit, OnDestroy {
                 headers: { Authorization: `Bearer ${this.service.token}` },
             })
             .subscribe({
-                next: data => this.artists.push(data),
+                next: data => {
+                    this.artists.splice(
+                        Math.floor(Math.random() * this.artists.length + 1),
+                        0,
+                        data
+                    )
+                    console.log(this.artists)
+                },
             })
     }
 
     checkArtistClicked(e: any): void {
+        console.log(this.artists)
         this.guessed = true
         if (e === this.correctArtistName) {
             this.isCorrect = true
