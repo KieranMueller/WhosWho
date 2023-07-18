@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
+// Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
 
 @Component({
     selector: 'app-game',
@@ -93,13 +94,27 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     handleArtists(num: number = 2): void {
+        let artistNameArr: Array<string> = []
+        artistNameArr.push(
+            this.availableSongs[this.randomIndex].artists[0].name
+        )
         this.pushArtist(this.availableSongs[this.randomIndex].artists[0].id)
-        for (let i = 0; i < num - 1; i++) {
-            this.pushArtist(
-                this.availableSongs[
-                    Math.floor(Math.random() * this.availableSongs.length)
-                ].artists[0].id
+        let i = 0
+        while (i < num - 1) {
+            let randomIndex = Math.floor(
+                Math.random() * this.availableSongs.length
             )
+            if (
+                !artistNameArr.includes(
+                    this.availableSongs[randomIndex].artists[0].name
+                )
+            ) {
+                artistNameArr.push(
+                    this.availableSongs[randomIndex].artists[0].name
+                )
+                this.pushArtist(this.availableSongs[randomIndex].artists[0].id)
+                i++
+            }
         }
     }
 
