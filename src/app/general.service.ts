@@ -8,6 +8,6 @@ export class GeneralService {
     selectedGenre: string = ''
     numArtists: number = 2
     numSongs: number = 1
-    guessType: String = 'easy'
+    guessAmount: number = 10
     constructor() {}
 }
