@@ -4,6 +4,7 @@ import { GeneralService } from '../general.service'
 
 // TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
+// autoplay only when one song selected
 
 @Component({
     selector: 'app-game',
