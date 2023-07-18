@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnDestroy, OnInit, Input } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
@@ -11,7 +11,7 @@ import { GeneralService } from '../general.service'
     styleUrls: ['./game.component.css'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-    livesRemaining: Array<number> = [1, 2, 3]
+    livesRemaining: Array<number> = []
     selectedGenre: string = ''
     availableSongs: Array<any> = []
     randomIndex: number = 0
@@ -39,6 +39,8 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.numSongs = this.service.numSongs
         this.selectedGenre = this.service.selectedGenre
+        for (let i = 0; i < this.service.guessAmount; i++)
+            this.livesRemaining.push(1)
         this.getSongs()
     }
 
