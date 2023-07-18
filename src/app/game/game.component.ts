@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
-// TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
-// autoplay only when one song selected
 
 @Component({
     selector: 'app-game',
@@ -12,6 +10,8 @@ import { GeneralService } from '../general.service'
     styleUrls: ['./game.component.css'],
 })
 export class GameComponent implements OnInit, OnDestroy {
+    livesRemaining: Array<number> = [1, 2, 3]
+    selectedGenre: string = ''
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: Array<any> = []
@@ -26,6 +26,7 @@ export class GameComponent implements OnInit, OnDestroy {
     isAutoplay: boolean = false
     numSongs: number = 1
     songsArr: Array<any> = []
+    wrongCounter: number = 0
 
     constructor(private http: HttpClient, private service: GeneralService) {}
 
@@ -36,6 +37,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.numSongs = this.service.numSongs
+        this.selectedGenre = this.service.selectedGenre
         this.getSongs()
     }
 
@@ -50,7 +52,8 @@ export class GameComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (obj: any) => {
                     for (let i = 0; i < this.numSongs; i++) {
-                        this.songsArr.push(obj.tracks[i])
+                        if (obj.tracks[i].preview_url != null)
+                            this.songsArr.push(obj.tracks[i])
                     }
                 },
                 error: e => console.log(e),
@@ -92,6 +95,10 @@ export class GameComponent implements OnInit, OnDestroy {
         this.guessed = false
         this.hitPlay = true
         this.totalElapsed++
+        if (this.totalElapsed - this.totalScore != this.wrongCounter) {
+            this.livesRemaining.pop()
+            this.wrongCounter++
+        }
     }
 
     handleArtists(num: number = 2): void {
@@ -146,7 +153,11 @@ export class GameComponent implements OnInit, OnDestroy {
         }, 200)
     }
 
+    endGame() {
+        alert('Game Over')
+    }
+
     testStuff() {
-        console.log('test')
+        console.log(this.songsArr)
     }
 }
