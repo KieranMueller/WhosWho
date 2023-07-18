@@ -3,13 +3,13 @@ import { Component, OnDestroy, OnInit, Input } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
+// Add end game modal/ disable everything, set timeout route back to home page?
 
 @Component({
     selector: 'app-game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
-
 export class GameComponent implements OnInit, OnDestroy {
     livesRemaining: Array<number> = [1, 2, 3]
     selectedGenre: string = ''
@@ -152,10 +152,6 @@ export class GameComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.getSongs()
         }, 200)
-    }
-
-    endGame() {
-        alert('Game Over')
     }
 
     testStuff() {
