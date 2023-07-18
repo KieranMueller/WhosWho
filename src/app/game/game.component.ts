@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit, Input } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
@@ -9,6 +9,7 @@ import { GeneralService } from '../general.service'
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
+
 export class GameComponent implements OnInit, OnDestroy {
     livesRemaining: Array<number> = [1, 2, 3]
     selectedGenre: string = ''

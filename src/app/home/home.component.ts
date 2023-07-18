@@ -19,9 +19,11 @@ export class HomeComponent implements OnInit {
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
     songs: number[] = [1, 2, 3, 4, 5, 6, 7, 8]
     artists: number[] = [2, 3, 4, 5, 6, 7, 8]
+    guesses: String[] = ['easy','medium','hard']
     selectedGenre: String = ''
     selectedSong: number = 1
     selectedArtist: number = 2
+    selectedGuesses: String='easy'
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
@@ -84,6 +86,13 @@ export class HomeComponent implements OnInit {
         console.log(TOKEN_KEY)
     }
 
+    setGuesses(selectedGuesses: any) {
+        this.selectedGuesses = selectedGuesses
+        console.log(this.selectedGuesses)
+        console.log(TOKEN_KEY)
+    }
+
+
     testApi() {
         return this.http
             .get(
@@ -98,5 +107,7 @@ export class HomeComponent implements OnInit {
     syncWithService() {
         this.service.numArtists = this.selectedArtist
         this.service.numSongs = this.selectedSong
+        this.service.guessType = this.selectedGuesses
+
     }
 }
