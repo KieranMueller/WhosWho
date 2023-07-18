@@ -4,8 +4,12 @@
         <button (click)="getSongs()">
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
+
         <button *ngIf="numSongs === 1" (click)="isAutoplay = !isAutoplay">
             Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
+
+
+
         </button>
         <div *ngIf="availableSongs.length > 0">
             <audio
@@ -15,6 +19,9 @@
                 [src]="song.preview_url"></audio>
         </div>
     </div>
+
+   
+
     <div class="image-container" *ngIf="artists.length > 0">
         <button
             *ngFor="let artist of artists"
@@ -23,6 +30,7 @@
             <img [src]="artist.images[0].url" alt="..." />
             <p>{{ artist.name }}</p>
         </button>
+
     </div>
     <div *ngIf="isCorrect" class="win-div">
         <h1>Correct! ✅</h1>

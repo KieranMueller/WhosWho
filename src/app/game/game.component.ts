@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit, Input } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // TO FIX! Multiple of same artist showing up, sometimes correct artist always last, sometimes always first...
@@ -11,7 +11,12 @@ import { GeneralService } from '../general.service'
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
 })
+
 export class GameComponent implements OnInit, OnDestroy {
+   
+
+
+
     availableSongs: Array<any> = []
     randomIndex: number = 0
     artists: Array<any> = []
