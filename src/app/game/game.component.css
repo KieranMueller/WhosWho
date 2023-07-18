@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .top-strip {
@@ -14,14 +14,14 @@
     align-items: center;
     border: 1px solid grey;
     border-radius: 40px;
-    padding: 20px;
+    padding: 0;
 }
 
 .top-strip > button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 25px;
     height: 40px;
     border-radius: 20px;
     border: 1px solid grey;
@@ -29,7 +29,7 @@
 }
 
 .top-strip * {
-    margin: 20px;
+    margin: 8px;
 }
 
 img {
@@ -43,7 +43,7 @@ img {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 30px;
+    margin: 0;
 }
 
 .image-container > button {
