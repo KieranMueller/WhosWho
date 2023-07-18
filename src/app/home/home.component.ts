@@ -107,7 +107,20 @@ export class HomeComponent implements OnInit {
     syncWithService() {
         this.service.numArtists = this.selectedArtist
         this.service.numSongs = this.selectedSong
-        this.service.guessType = this.selectedGuesses
+        switch(this.selectedGuesses) { 
+            case 'easy': { 
+                this.service.guessAmount=10;
+               break; 
+            } 
+            case 'medium': { 
+                this.service.guessAmount=5;
+               break; 
+            } 
+            case 'hard':  { 
+                this.service.guessAmount=1;
+               break; 
+            } 
+         } 
 
     }
 }
