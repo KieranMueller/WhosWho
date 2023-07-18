@@ -7,6 +7,9 @@
 
         <button *ngIf="numSongs === 1" (click)="isAutoplay = !isAutoplay">
             Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
+
+
+
         </button>
         <div *ngIf="availableSongs.length > 0">
             <audio
