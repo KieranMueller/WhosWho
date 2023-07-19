@@ -134,6 +134,9 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     resetStuff(): void {
+        this.songIndex = 0
+        this.prevDisabled = true
+        this.nextDisabled = false
         this.previousCorrectArtistName = this.correctArtistName
         this.songsArr = []
         this.artists = []
