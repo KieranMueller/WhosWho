@@ -10,11 +10,10 @@ import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
-// make only one audio able play at a time
 // Make home page more user friendly, explain what is going on, mitigate confusion
-// getting the same song(s) when multiple selected!!
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc
 // make correct or incorrect icon appear over image when clicked instead of below it
+// share score on twitter option?
 
 @Component({
     selector: 'app-game',
@@ -36,7 +35,7 @@ export class GameComponent implements OnInit, OnDestroy {
     hitPlay: boolean = false
     totalScore: number = 0
     totalElapsed: number = -1
-    isAutoplay: boolean = false
+    isAutoplay: boolean = true
     numSongs: number = 1
     songsArr: Array<any> = []
     wrongCounter: number = 0
@@ -93,8 +92,7 @@ export class GameComponent implements OnInit, OnDestroy {
                     this.handleSongs(this.correctArtistData.artists[0].id)
                     this.handleArtists(this.service.numArtists)
                 },
-                error: e => {
-                    console.log(e)
+                error: () => {
                     this.isError = true
                     this.redirectHome()
                 },
@@ -112,12 +110,23 @@ export class GameComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (obj: any) => {
                     this.songsArr.push(this.correctArtistData)
-                    for (let i = 0; i < this.numSongs - 1; i++)
-                        if (obj.tracks[i].preview_url != null)
-                            this.songsArr.push(obj.tracks[i])
+                    let i = 0
+                    while (i < this.numSongs - 1) {
+                        let preview_urls: Array<string> = []
+                        for (let song of this.songsArr)
+                            preview_urls.push(song.preview_url)
+                        for (let track of obj.tracks)
+                            if (
+                                track.preview_url != null &&
+                                !preview_urls.includes(track.preview_url) &&
+                                i < this.numSongs - 1
+                            ) {
+                                this.songsArr.push(track)
+                                i++
+                            }
+                    }
                 },
-                error: e => {
-                    console.log(e)
+                error: () => {
                     this.isError = true
                     this.redirectHome()
                 },
