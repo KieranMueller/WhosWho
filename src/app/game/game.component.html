@@ -1,6 +1,6 @@
 <div class="error-modal" *ngIf="isError">
     <div class="inner-error">
-        <h1>⚠️ Oops! Something Went Wrong, Heading Back Home ⚠️</h1>
+        <h1>⚠️ Oops! Something Went Wrong, Heading Home ⚠️</h1>
         <h1>{{ countdown }} . . . 🚀</h1>
         <div class="redirect-now">
             <button routerLink="">Home</button>
@@ -46,7 +46,7 @@
             Score: {{ totalScore }} /
             {{ totalElapsed > -1 ? totalElapsed : 0 }}
         </h4>
-        <button (click)="testStuff()">Test</button>
+        <button (click)="test()">Test</button>
     </div>
     <div class="top-strip">
         <button routerLink="">Home</button>
@@ -54,11 +54,18 @@
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
 
-        <button *ngIf="numSongs === 1" (click)="isAutoplay = !isAutoplay">
+        <button (click)="isAutoplay = !isAutoplay">
             Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
         </button>
         <div *ngIf="availableSongs.length > 0">
-            <audio [autoplay]="isAutoplay" controls [src]="songsArr[currentSongIndex].preview_url"></audio>
+            <audio
+                [autoplay]="isAutoplay"
+                controls
+                [src]="songsArr[songIndex].preview_url"></audio>
+            <div class="toggle-song-div" *ngIf="songsArr.length > 1">
+                <button (click)="prevSong()">Previous Song</button>
+                <button (click)="nextSong()">Next Song</button>
+            </div>
         </div>
     </div>
 
