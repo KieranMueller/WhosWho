@@ -14,6 +14,7 @@ import { Router } from '@angular/router'
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
+// redirect settimeout still fires after 5 seconds even when button clicked, kicks you out of next game
 
 @Component({
     selector: 'app-game',
@@ -40,7 +41,7 @@ export class GameComponent implements OnInit, OnDestroy {
     songsArr: Array<any> = []
     wrongCounter: number = 0
     isError: boolean = false
-    redirectTime: number = 5000
+    redirectTime: number = 3000
     countdown: any = this.redirectTime / 1000
     songIndex: number = 0
     nextDisabled: boolean = false
@@ -77,6 +78,7 @@ export class GameComponent implements OnInit, OnDestroy {
                     for (let song of data.tracks.items)
                         if (song.preview_url != null)
                             this.availableSongs.push(song)
+                    if (this.availableSongs.length === 0) this.redirectHome()
                     this.randomIndex = Math.floor(
                         Math.random() * (this.availableSongs.length - 1)
                     )
@@ -92,7 +94,8 @@ export class GameComponent implements OnInit, OnDestroy {
                     this.handleSongs(this.correctArtistData.artists[0].id)
                     this.handleArtists(this.service.numArtists)
                 },
-                error: () => {
+                error: e => {
+                    console.log(e)
                     this.isError = true
                     this.redirectHome()
                 },
@@ -218,6 +221,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     redirectHome() {
+        this.isError = true
         setTimeout(() => {
             this.redirectTime -= 1000
             this.countdown = this.redirectTime / 1000
@@ -230,6 +234,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     test() {
+        console.log(this.availableSongs)
         console.log(this.songsArr)
     }
 }
