@@ -3,7 +3,7 @@
         <h1>⚠️ Oops! Something Went Wrong, Heading Home ⚠️</h1>
         <h1>{{ countdown }} . . . 🚀</h1>
         <div class="redirect-now">
-            <button routerLink="">Home</button>
+            <button class="btn" routerLink="">Home</button>
             <p>(click here if you are not redirected automatically)</p>
         </div>
     </div>
@@ -46,31 +46,43 @@
             Score: {{ totalScore }} /
             {{ totalElapsed > -1 ? totalElapsed : 0 }}
         </h4>
-        <button (click)="test()">Test</button>
+        <button class="btn" (click)="test()">Test</button>
     </div>
     <div class="top-strip">
-        <button routerLink="">Home</button>
-        <button (click)="getSongs()">
+        <button class="btn" routerLink="">Home</button>
+        <button class="btn" (click)="getSongs()">
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
 
-        <button (click)="isAutoplay = !isAutoplay">
+        <button class="btn" (click)="isAutoplay = !isAutoplay">
             Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
         </button>
-        <div *ngIf="availableSongs.length > 0">
+        <div class="song-div" *ngIf="availableSongs.length > 0">
             <audio
                 [autoplay]="isAutoplay"
                 controls
                 [src]="songsArr[songIndex].preview_url"></audio>
             <div class="toggle-song-div" *ngIf="songsArr.length > 1">
-                <button (click)="prevSong()">Previous Song</button>
-                <button (click)="nextSong()">Next Song</button>
+                <button
+                    class="btn"
+                    (click)="prevSong()"
+                    [disabled]="prevDisabled">
+                    Previous Song
+                </button>
+                <button
+                    class="btn"
+                    (click)="nextSong()"
+                    [disabled]="nextDisabled">
+                    Next Song
+                </button>
+                <p>{{ songIndex + 1 }}/{{ songsArr.length }}</p>
             </div>
         </div>
     </div>
 
     <div class="image-container" *ngIf="artists.length > 0">
         <button
+            class="artist-btn"
             *ngFor="let artist of artists"
             [disabled]="guessed"
             (click)="checkArtistClicked(artist.name)">
