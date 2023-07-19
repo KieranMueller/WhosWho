@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
+import { Router } from '@angular/router'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
 //TODO: only one audio can play at a time
 // Make home page more user friendly, explain what is going on, mitigate confusion
 // getting the same song(s) when multiple selected
 // add randomization of artist pictures if they have multiple
+// add error page or click here button to go home
+// add a point system instead? weighting mechanism, more points for less clicks on songs etc
 
 @Component({
     selector: 'app-game',
@@ -32,8 +35,15 @@ export class GameComponent implements OnInit, OnDestroy {
     numSongs: number = 1
     songsArr: Array<any> = []
     wrongCounter: number = 0
+    isError: boolean = false
+    redirectTime: number = 5000
+    countdown: any = this.redirectTime / 1000
 
-    constructor(private http: HttpClient, private service: GeneralService) {}
+    constructor(
+        private http: HttpClient,
+        private service: GeneralService,
+        private router: Router
+    ) {}
 
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
@@ -75,7 +85,11 @@ export class GameComponent implements OnInit, OnDestroy {
                     this.handleSongs(this.correctArtistData.artists[0].id)
                     this.handleArtists(this.service.numArtists)
                 },
-                error: e => console.log(e),
+                error: e => {
+                    console.log(e)
+                    this.isError = true
+                    this.redirectHome()
+                },
             })
     }
 
@@ -95,7 +109,11 @@ export class GameComponent implements OnInit, OnDestroy {
                             this.songsArr.push(obj.tracks[i])
                     }
                 },
-                error: e => console.log(e),
+                error: e => {
+                    console.log(e)
+                    this.isError = true
+                    this.redirectHome()
+                },
             })
     }
 
@@ -164,7 +182,19 @@ export class GameComponent implements OnInit, OnDestroy {
         } else this.isWrong = true
         setTimeout(() => {
             this.getSongs()
-        }, 200)
+        }, 100)
+    }
+
+    redirectHome() {
+        setTimeout(() => {
+            this.redirectTime -= 1000
+            this.countdown = this.redirectTime / 1000
+            if (this.redirectTime > 0) this.redirectHome()
+        }, 1000)
+        setTimeout(() => {
+            this.router.navigateByUrl('')
+            this.isError = false
+        }, this.redirectTime)
     }
 
     testStuff() {
