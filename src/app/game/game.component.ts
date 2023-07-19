@@ -1,15 +1,20 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core'
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
-//TODO: only one audio can play at a time
+// make only one audio able play at a time
 // Make home page more user friendly, explain what is going on, mitigate confusion
-// getting the same song(s) when multiple selected
-// add randomization of artist pictures if they have multiple
-// add error page or click here button to go home
+// getting the same song(s) when multiple selected!!
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc
+// make correct or incorrect icon appear over image when clicked instead of below it
 
 @Component({
     selector: 'app-game',
@@ -38,6 +43,7 @@ export class GameComponent implements OnInit, OnDestroy {
     isError: boolean = false
     redirectTime: number = 5000
     countdown: any = this.redirectTime / 1000
+    songIndex: number = 0
 
     constructor(
         private http: HttpClient,
@@ -104,10 +110,10 @@ export class GameComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (obj: any) => {
                     this.songsArr.push(this.correctArtistData)
-                    for (let i = 0; i < this.numSongs - 1; i++) {
+                    for (let i = 0; i < this.numSongs - 1; i++)
                         if (obj.tracks[i].preview_url != null)
                             this.songsArr.push(obj.tracks[i])
-                    }
+                    this.songIndex = this.songsArr.length - 1
                 },
                 error: e => {
                     console.log(e)
@@ -174,15 +180,23 @@ export class GameComponent implements OnInit, OnDestroy {
             })
     }
 
-    checkArtistClicked(e: any): void {
+    checkArtistClicked(name: any): void {
         this.guessed = true
-        if (e === this.correctArtistName) {
+        if (name === this.correctArtistName) {
             this.isCorrect = true
             this.totalScore++
         } else this.isWrong = true
         setTimeout(() => {
             this.getSongs()
         }, 100)
+    }
+
+    nextSong() {
+        if (this.songIndex > 0) this.songIndex -= 1
+    }
+
+    prevSong() {
+        if (this.songIndex < this.songsArr.length - 1) this.songIndex += 1
     }
 
     redirectHome() {
@@ -197,12 +211,7 @@ export class GameComponent implements OnInit, OnDestroy {
         }, this.redirectTime)
     }
 
-    testStuff() {
-        console.log('available songs')
-        console.log(this.availableSongs)
-        console.log('song arr')
-        console.log(this.songsArr)
-        console.log('correct artist data')
-        console.log(this.correctArtistData)
+    test() {
+        console.log(this.artists)
     }
 }
