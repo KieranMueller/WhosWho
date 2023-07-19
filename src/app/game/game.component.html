@@ -58,11 +58,7 @@
             Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
         </button>
         <div *ngIf="availableSongs.length > 0">
-            <audio
-                *ngFor="let song of songsArr"
-                [autoplay]="isAutoplay"
-                controls
-                [src]="song.preview_url"></audio>
+            <audio [autoplay]="isAutoplay" controls [src]="songsArr[currentSongIndex].preview_url"></audio>
         </div>
     </div>
 

@@ -38,6 +38,7 @@ export class GameComponent implements OnInit, OnDestroy {
     isError: boolean = false
     redirectTime: number = 5000
     countdown: any = this.redirectTime / 1000
+    currentSongIndex: number = 0;
 
     constructor(
         private http: HttpClient,
