@@ -15,6 +15,7 @@ import { Router } from '@angular/router'
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
 // redirect settimeout still fires after 5 seconds even when button clicked, kicks you out of next game
+// site crashing sometimes, finding it with chill genre, stuck in loop in handleSongs()
 
 @Component({
     selector: 'app-game',
@@ -114,11 +115,12 @@ export class GameComponent implements OnInit, OnDestroy {
                 next: (obj: any) => {
                     this.songsArr.push(this.correctArtistData)
                     let i = 0
-                    while (i < this.numSongs - 1) {
+                    let j = 0
+                    while (j < this.numSongs - 1) {
                         let preview_urls: Array<string> = []
                         for (let song of this.songsArr)
                             preview_urls.push(song.preview_url)
-                        for (let track of obj.tracks)
+                        for (let track of obj.tracks) {
                             if (
                                 track.preview_url != null &&
                                 !preview_urls.includes(track.preview_url) &&
@@ -127,9 +129,12 @@ export class GameComponent implements OnInit, OnDestroy {
                                 this.songsArr.push(track)
                                 i++
                             }
+                        }
+                        j++
                     }
                 },
-                error: () => {
+                error: e => {
+                    console.log(e)
                     this.isError = true
                     this.redirectHome()
                 },
