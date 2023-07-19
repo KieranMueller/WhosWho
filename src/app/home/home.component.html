@@ -1,8 +1,8 @@
 <div class="container">
     <div *ngIf="authLoading || configLoading">Loading...</div>
     <div *ngIf="!authLoading && !configLoading">
-        
-        <p>Select the genre of music you want to play in the game: </p>
+        <p>Genre Selection:</p>
+        <p>Select the specific genre of music (e.g., rock, pop, hip-hop) you want to play in the game:</p>
         <select
         [(ngModel)]="selectedGenre"
         (ngModelChange)="setGenre($event)"
@@ -11,22 +11,27 @@
         <option [value]="genre" *ngFor="let genre of genres">{{ genre }}</option>
       </select>
         <br />
-
-        <p>Choose the number of Songs you want to play throughout the game: </p>
+        <br />
+        <p>Number of Songs Selection:</p>
+        <p>Specify the exact number of songs you want to play throughout the game:</p>
         <select [(ngModel)]="selectedSong">
             <option *ngFor="let song of songs" [value]="song">
                 {{ song }}
             </option>
         </select>
         <br />
-        <p>Choose the number of Artists you want to choose between in each round of the game: </p>
+        <br />
+        <p>Number of Artists Selection:</p>
+        <p>Select the number of artists you want to choose between in each round of the game:</p>
         <select [(ngModel)]="selectedArtist">
             <option *ngFor="let artist of artists" [value]="artist">
                 {{ artist }}
             </option>
         </select>
         <br />
-        <p>Choose the amount of incorrect guesses that are allowed in the game (Easy(10),  Medium(5),  Hard(1)):</p>
+        <br />
+        <p>Select the maximum number of incorrect guesses allowed before reaching Game Over. </p>
+        <p>  Choose from the following difficulty levels: Easy (10), Medium (5), Hard (1):</p>
         <select [(ngModel)]="selectedGuesses">
             <option *ngFor="let guess of guesses" [value]="guess">
                 {{ guess }}
