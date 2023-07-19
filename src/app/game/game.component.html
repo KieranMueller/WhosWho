@@ -1,3 +1,13 @@
+<div class="error-modal" *ngIf="isError">
+    <div class="inner-error">
+        <h1>⚠️ Oops! Something Went Wrong, Heading Back Home ⚠️</h1>
+        <h1>{{ countdown }} . . . 🚀</h1>
+        <div class="redirect-now">
+            <button routerLink="">Home</button>
+            <p>(click here if you are not redirected automatically)</p>
+        </div>
+    </div>
+</div>
 <div class="end-game-modal" *ngIf="livesRemaining.length === 0">
     <div class="game-over-container">
         <h2>
