@@ -2,18 +2,26 @@
     <div *ngIf="authLoading || configLoading">Loading...</div>
     <div *ngIf="!authLoading && !configLoading">
         <p>Genre Selection:</p>
-        <p>Select the specific genre of music (e.g., rock, pop, hip-hop) you want to play in the game:</p>
+        <p class="description">
+            Select the specific genre of music (e.g., rock, pop, hip-hop) you
+            want to play in the game:
+        </p>
         <select
-        [(ngModel)]="selectedGenre"
-        (ngModelChange)="setGenre($event)"
-        id="genre-select">
-        <option value="">Select a genre</option>
-        <option [value]="genre" *ngFor="let genre of genres">{{ genre }}</option>
-      </select>
+            [(ngModel)]="selectedGenre"
+            (ngModelChange)="setGenre($event)"
+            id="genre-select">
+            <option value="">Select a genre</option>
+            <option [value]="genre" *ngFor="let genre of genres">
+                {{ genre }}
+            </option>
+        </select>
         <br />
         <br />
         <p>Number of Songs Selection:</p>
-        <p>Specify the exact number of songs you want to play throughout the game:</p>
+        <p class="description">
+            Specify the exact number of songs you want to play throughout the
+            game:
+        </p>
         <select [(ngModel)]="selectedSong">
             <option *ngFor="let song of songs" [value]="song">
                 {{ song }}
@@ -22,7 +30,10 @@
         <br />
         <br />
         <p>Number of Artists Selection:</p>
-        <p>Select the number of artists you want to choose between in each round of the game:</p>
+        <p class="description">
+            Select the number of artists you want to choose between in each
+            round of the game:
+        </p>
         <select [(ngModel)]="selectedArtist">
             <option *ngFor="let artist of artists" [value]="artist">
                 {{ artist }}
@@ -30,8 +41,14 @@
         </select>
         <br />
         <br />
-        <p>Select the maximum number of incorrect guesses allowed before reaching Game Over. </p>
-        <p>  Choose from the following difficulty levels: Easy (10), Medium (5), Hard (1):</p>
+        <p>
+            Select the maximum number of incorrect guesses allowed before
+            reaching Game Over.
+        </p>
+        <p class="description">
+            Choose from the following difficulty levels: Easy (10), Medium (5),
+            Hard (1):
+        </p>
         <select [(ngModel)]="selectedGuesses">
             <option *ngFor="let guess of guesses" [value]="guess">
                 {{ guess }}
@@ -39,9 +56,19 @@
         </select>
         <br />
         <br />
-        <button (click)="syncWithService()" routerLink="/game" id="goToGame" [disabled]="selectedGenre === ''">
+        <button
+            (click)="syncWithService()"
+            routerLink="/game"
+            id="goToGame"
+            [disabled]="selectedGenre === ''">
             Go to game>
         </button>
     </div>
-
+    <div class="logo-div">
+        <p>Powered by:</p>
+        <img
+            class="logo"
+            src="../../assets/images/spotify-logo1.svg"
+            alt="spotify logo" />
+    </div>
 </div>

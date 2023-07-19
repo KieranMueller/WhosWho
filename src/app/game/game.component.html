@@ -39,7 +39,7 @@
     <div class="top-bar">
         <div>
             <h4>Lives Remaining:&nbsp;&nbsp;</h4>
-            <h1 *ngFor="let live of livesRemaining">♪</h1>
+            <h1 *ngFor="let live of livesRemaining" class="lives-symbol">♪</h1>
         </div>
         <h4>{{ selectedGenre ? selectedGenre : 'No Genre Selected' }}</h4>
         <h4>

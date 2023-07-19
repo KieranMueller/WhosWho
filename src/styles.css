@@ -1,3 +1,11 @@
+:root {
+    --spotify-green: rgb(22, 219, 99);
+    --spotify-background: rgb(18, 18, 18);
+    --spotify-text-primary: rgb(248, 248, 248);
+    --spotify-text-secondary: rgb(161, 161, 161);
+    --spotify-btn: rgb(35, 35, 35);
+}
+
 @font-face {
     font-family: poppins;
     src: url(./assets/fonts/Poppins-Regular.ttf) format('truetype');
@@ -11,7 +19,7 @@
 }
 
 html {
-    background-color: rgb(39, 39, 39);
-    color: whitesmoke;
+    background-color: var(--spotify-background);
+    color: var(--spotify-text-primary);
     overflow-y: scroll;
 }

@@ -14,8 +14,10 @@ import { Router } from '@angular/router'
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
-// redirect settimeout still fires after 5 seconds even when button clicked, kicks you out of next game
-// site crashing sometimes, finding it with chill genre, stuck in loop in handleSongs()
+// make lives red and animated when almost dead?
+// style things like spotify, make 'powered by spotify' image at bottom
+// internet slow error message
+// make some configuration settings sliders not dropdowns?
 
 @Component({
     selector: 'app-game',
