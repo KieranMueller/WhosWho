@@ -3,6 +3,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { GeneralService } from '../general.service'
 
 // Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
+//TODO: only one audio can play at a time
+// Make home page more user friendly, explain what is going on, mitigate confusion
+// getting the same song(s) when multiple selected
+// add randomization of artist pictures if they have multiple
 
 @Component({
     selector: 'app-game',
@@ -17,6 +21,7 @@ export class GameComponent implements OnInit, OnDestroy {
     artists: Array<any> = []
     isCorrect: boolean = false
     guessed: boolean = false
+    previousCorrectArtistName: string = ''
     correctArtistName: string = ''
     correctArtistData: any = {}
     isWrong: boolean = false
@@ -56,8 +61,13 @@ export class GameComponent implements OnInit, OnDestroy {
                         if (song.preview_url != null)
                             this.availableSongs.push(song)
                     this.randomIndex = Math.floor(
-                        Math.random() * this.availableSongs.length
+                        Math.random() * (this.availableSongs.length - 1)
                     )
+                    if (
+                        this.availableSongs[this.randomIndex].artists[0]
+                            .name === this.previousCorrectArtistName
+                    )
+                        this.randomIndex += 1
                     this.correctArtistName =
                         this.availableSongs[this.randomIndex].artists[0].name
                     this.correctArtistData =
@@ -90,6 +100,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     resetStuff(): void {
+        this.previousCorrectArtistName = this.correctArtistName
         this.songsArr = []
         this.artists = []
         this.availableSongs = []
