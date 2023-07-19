@@ -1,0 +1,12 @@
+.nav {
+    width: 100vw;
+    height: 8vh;
+    background: var(--spotify-btn);
+    position: fixed;
+}
+
+.nav div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

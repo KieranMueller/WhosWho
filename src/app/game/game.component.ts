@@ -17,7 +17,8 @@ import { Router } from '@angular/router'
 // make lives red and animated when almost dead?
 // style things like spotify, make 'powered by spotify' image at bottom
 // internet slow error message
-// make some configuration settings sliders not dropdowns?
+// make some configuration setting sliders not dropdowns?
+// make contact/about the creators page
 
 @Component({
     selector: 'app-game',

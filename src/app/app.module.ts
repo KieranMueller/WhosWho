@@ -7,12 +7,13 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
-import { AppRoutingModule } from './app-routing.module'
+import { AppRoutingModule } from './app-routing.module';
+import { NavComponent } from './nav/nav.component'
 
 const routes: Routes = [{ path: '', component: HomeComponent }]
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, GameComponent],
+    declarations: [AppComponent, HomeComponent, GameComponent, NavComponent],
     imports: [
         BrowserModule,
         FormsModule,
