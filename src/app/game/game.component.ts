@@ -44,6 +44,8 @@ export class GameComponent implements OnInit, OnDestroy {
     redirectTime: number = 5000
     countdown: any = this.redirectTime / 1000
     songIndex: number = 0
+    nextDisabled: boolean = false
+    prevDisabled: boolean = true
 
     constructor(
         private http: HttpClient,
@@ -113,7 +115,6 @@ export class GameComponent implements OnInit, OnDestroy {
                     for (let i = 0; i < this.numSongs - 1; i++)
                         if (obj.tracks[i].preview_url != null)
                             this.songsArr.push(obj.tracks[i])
-                    this.songIndex = this.songsArr.length - 1
                 },
                 error: e => {
                     console.log(e)
@@ -192,11 +193,16 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     nextSong() {
-        if (this.songIndex > 0) this.songIndex -= 1
+        this.prevDisabled = false
+        if (this.songIndex < this.songsArr.length - 1) this.songIndex += 1
+        if (this.songIndex === this.songsArr.length - 1)
+            this.nextDisabled = true
     }
 
     prevSong() {
-        if (this.songIndex < this.songsArr.length - 1) this.songIndex += 1
+        this.nextDisabled = false
+        if (this.songIndex > 0) this.songIndex -= 1
+        if (this.songIndex === 0) this.prevDisabled = true
     }
 
     redirectHome() {
@@ -212,6 +218,6 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     test() {
-        console.log(this.artists)
+        console.log(this.songsArr)
     }
 }
