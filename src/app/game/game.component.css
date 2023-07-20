@@ -422,17 +422,16 @@ img {
         height: 100px;
     }
 
-    /* .top-bar {
-        flex-wrap: wrap;
-        margin-left: 40px;
-    } */
-
     .top-strip *:not(audio) {
         scale: 0.8;
     }
 
     .toggle {
         scale: 0.8;
+    }
+
+    audio {
+        scale: 0.5;
     }
 }
 
@@ -451,5 +450,12 @@ img {
     .artist-btn p {
         font-size: 10px;
         height: 30px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .top-strip *:not(audio) {
+        scale: 0.7;
+        justify-content: flex-start;
     }
 }
