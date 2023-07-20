@@ -21,7 +21,7 @@ import { Router } from '@angular/router'
 // make contact/about the creators page
 // turn autoplay into toggle (like an app toggle)
 // stored genre not loading
-// are setGenre, setSong, setArtist, setGuesses being used in homeComponent?
+// correct artist is frequently in the same index
 
 @Component({
     selector: 'app-game',
@@ -53,6 +53,7 @@ export class GameComponent implements OnInit, OnDestroy {
     songIndex: number = 0
     nextDisabled: boolean = false
     prevDisabled: boolean = true
+    highScore: number = 0
 
     constructor(
         private http: HttpClient,
@@ -63,6 +64,7 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
         this.handleSongs('').unsubscribe()
+        this.saveLocalStorage()
     }
 
     ngOnInit(): void {
@@ -70,6 +72,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.selectedGenre = this.service.selectedGenre
         for (let i = 0; i < this.service.guessAmount; i++)
             this.livesRemaining.push(1)
+        this.getLocalStorage()
         this.getSongs()
     }
 
@@ -212,6 +215,8 @@ export class GameComponent implements OnInit, OnDestroy {
         if (name === this.correctArtistName) {
             this.isCorrect = true
             this.totalScore++
+            if (this.totalScore > this.highScore)
+                this.highScore = this.totalScore
         } else this.isWrong = true
         setTimeout(() => {
             this.getSongs()
@@ -242,5 +247,19 @@ export class GameComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('')
             this.isError = false
         }, this.redirectTime)
+    }
+
+    saveLocalStorage() {
+        localStorage.setItem('highScore', String(this.highScore))
+    }
+
+    getLocalStorage() {
+        const savedHighScore = localStorage.getItem('highScore')
+        if (savedHighScore) {
+            const parsedSavedHighScore = parseInt(savedHighScore, 10)
+            if (parsedSavedHighScore > this.highScore) {
+                this.highScore = parsedSavedHighScore
+            }
+        }
     }
 }
