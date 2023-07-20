@@ -8,12 +8,13 @@ import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NavComponent } from './nav/nav.component'
+import { NavComponent } from './nav/nav.component';
+import { AboutComponent } from './about/about.component'
 
 const routes: Routes = [{ path: '', component: HomeComponent }]
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, GameComponent, NavComponent],
+    declarations: [AppComponent, HomeComponent, GameComponent, NavComponent, AboutComponent],
     imports: [
         BrowserModule,
         FormsModule,

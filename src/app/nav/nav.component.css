@@ -1,12 +1,24 @@
 .nav {
     width: 100vw;
-    height: 8vh;
+    height: 60px;
     background: var(--spotify-btn);
     position: fixed;
 }
 
-.nav div {
+.nav * {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 4px;
+}
+
+.nav button {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    border-radius: 10px;
+    padding: 5px 15px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
 }
