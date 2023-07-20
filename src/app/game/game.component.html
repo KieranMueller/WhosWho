@@ -67,10 +67,15 @@
         <button class="btn" (click)="getSongs()">
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
-
-        <button class="btn" (click)="isAutoplay = !isAutoplay">
-            Autoplay {{ isAutoplay ? 'OFF' : 'ON' }}
-        </button>
+        <label class="toggle">
+            <span class="toggle-label">Autoplay</span>
+            <input
+                class="toggle-checkbox"
+                type="checkbox"
+                checked
+                (change)="isAutoplay = !isAutoplay" />
+            <div class="toggle-switch"></div>
+        </label>
         <div class="song-div" *ngIf="availableSongs.length > 0">
             <audio
                 [autoplay]="isAutoplay"
