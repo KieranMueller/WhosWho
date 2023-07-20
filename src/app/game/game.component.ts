@@ -9,18 +9,17 @@ import {
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
-// Save high score in local storage? Longest right answer streak? Tweak UI, css, mobile friendly, loading pages?
-// Make home page more user friendly, explain what is going on, mitigate confusion
-// add a point system instead? weighting mechanism, more points for less clicks on songs etc
+// fun data - Longest right answer streak?
+// Tweak UI, css, mobile friendly, loading pages?
+// add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
 // make lives red and animated when almost dead?
-// style things like spotify, make 'powered by spotify' image at bottom
+// style things like spotify
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
 // make contact/about the creators page
 // turn autoplay into toggle (like an app toggle)
-// stored genre not loading
 // correct artist is frequently in the same index
 
 @Component({
