@@ -22,3 +22,46 @@
     border: none;
     cursor: pointer;
 }
+
+@media screen and (max-width: 740px) {
+    .title {
+        position: fixed;
+        top: 0;
+        left: 20px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .title {
+        font-size: 14px;
+    }
+
+    .creators-btn {
+        scale: 0.8;
+    }
+}
+
+@media screen and (max-width: 515px) {
+    .title {
+        font-size: 10px;
+        top: 8px;
+        left: 20px;
+    }
+
+    .creators-btn {
+        scale: 0.7;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .title {
+        flex-direction: column;
+        top: 0;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .creators-btn {
+        scale: 0.6;
+    }
+}
