@@ -1,7 +1,4 @@
-<div
-    class="error-modal"
-    *ngIf="isError"
-    [ngClass]="{ 'light-mode': !isDarkMode }">
+<div class="error-modal" *ngIf="isError">
     <div class="inner-error">
         <h1>⚠️ Oops! Something Went Wrong, Heading Home ⚠️</h1>
         <h1>{{ countdown }} . . . 🚀</h1>
@@ -52,6 +49,7 @@
             [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             Back
         </button>
+        <h4>High Score: {{ highScore }}</h4>
         <h4>Highest Correct Streak: {{ rightStreak }}</h4>
         <h4>Highest Wrong Streak: {{ wrongStreak }}</h4>
         <div>
@@ -86,7 +84,6 @@
             (click)="isViewingRecords = !isViewingRecords">
             View Records
         </button>
-        <h4>High Score: {{ highScore }}</h4>
         <div>
             <h4>Lives Remaining:&nbsp;&nbsp;</h4>
             <h1

@@ -6,6 +6,23 @@
     --spotify-btn: rgb(35, 35, 35);
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--spotify-text-primary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--spotify-text-secondary);
+}
+
 @font-face {
     font-family: poppins;
     src: url(./assets/fonts/Poppins-Regular.ttf) format('truetype');
