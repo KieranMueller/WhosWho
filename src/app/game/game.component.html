@@ -45,8 +45,9 @@
         <h4>Highest Wrong Streak:</h4>
     </div>
     <div class="top-bar" *ngIf="!isViewingRecords">
-        <!-- <button class="btn" routerLink="">Home</button> -->
-        <button class="btn" (click)="isViewingRecords = !isViewingRecords">
+        <button
+            class="btn view-records-btn"
+            (click)="isViewingRecords = !isViewingRecords">
             View Records
         </button>
         <h4>High Score: {{ highScore }}</h4>
