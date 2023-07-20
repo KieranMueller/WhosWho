@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit {
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
     songs: number[] = [1, 2, 3, 4, 5, 6, 7, 8]
     artists: number[] = [2, 3, 4, 5, 6, 7, 8]
-    guesses: String[] = ['easy','medium','hard']
+    guesses: String[] = ['easy', 'medium', 'hard']
     selectedGenre: String = ''
     selectedSong: number = 1
     selectedArtist: number = 2
-    selectedGuesses: String='easy'
+    selectedGuesses: String = 'easy'
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
                 this.token = storedToken.value
                 this.service.token = storedToken.value
                 this.loadGenres(storedToken.value)
+                this.getDataFromLocalStorage()
                 return
             }
         }
@@ -54,13 +55,12 @@ export class HomeComponent implements OnInit {
             this.service.token = newToken.value
             this.loadGenres(newToken.value)
         })
-        this.getDataFromLocalStorage();
+        this.getDataFromLocalStorage()
     }
 
     ngOnDestroy(): void {
-        
-        this.saveDataToLocalStorage();
-      }
+        this.saveDataToLocalStorage()
+    }
 
     loadGenres = async (t: any) => {
         this.configLoading = true
@@ -98,7 +98,6 @@ export class HomeComponent implements OnInit {
         console.log(TOKEN_KEY)
     }
 
-
     testApi() {
         return this.http
             .get(
@@ -113,52 +112,51 @@ export class HomeComponent implements OnInit {
     syncWithService() {
         this.service.numArtists = this.selectedArtist
         this.service.numSongs = this.selectedSong
-        switch(this.selectedGuesses) { 
-            case 'easy': { 
-                this.service.guessAmount=10;
-               break; 
-            } 
-            case 'medium': { 
-                this.service.guessAmount=5;
-               break; 
-            } 
-            case 'hard':  { 
-                this.service.guessAmount=1;
-               break; 
-            } 
-         } 
-
+        switch (this.selectedGuesses) {
+            case 'easy': {
+                this.service.guessAmount = 10
+                break
+            }
+            case 'medium': {
+                this.service.guessAmount = 5
+                break
+            }
+            case 'hard': {
+                this.service.guessAmount = 1
+                break
+            }
+        }
     }
 
     // Method to save data to local storage
-  saveDataToLocalStorage(): void {
-    localStorage.setItem('selectedGenre', String(this.selectedGenre));
-    localStorage.setItem('selectedSong', String(this.selectedSong));
-    localStorage.setItem('selectedArtist', String(this.selectedArtist));
-    localStorage.setItem('selectedGuesses', String(this.selectedGuesses));
-  }
-
-  // Method to get data from local storage
-  getDataFromLocalStorage(): void {
-    const storedGenre = localStorage.getItem('selectedGenre');
-    const storedSong = localStorage.getItem('selectedSong');
-    const storedArtist = localStorage.getItem('selectedArtist');
-    const storedGuesses = localStorage.getItem('selectedGuesses');
-
-    if (storedGenre) {
-      this.selectedGenre = storedGenre;
+    saveDataToLocalStorage(): void {
+        localStorage.setItem('selectedGenre', String(this.selectedGenre))
+        localStorage.setItem('selectedSong', String(this.selectedSong))
+        localStorage.setItem('selectedArtist', String(this.selectedArtist))
+        localStorage.setItem('selectedGuesses', String(this.selectedGuesses))
     }
 
-    if (storedSong) {
-      this.selectedSong = parseInt(storedSong, 10);
-    }
+    // Method to get data from local storage
+    getDataFromLocalStorage(): void {
+        const storedGenre = localStorage.getItem('selectedGenre')
+        const storedSong = localStorage.getItem('selectedSong')
+        const storedArtist = localStorage.getItem('selectedArtist')
+        const storedGuesses = localStorage.getItem('selectedGuesses')
 
-    if (storedArtist) {
-      this.selectedArtist = parseInt(storedArtist, 10);
-    }
+        if (storedGenre) {
+            this.selectedGenre = storedGenre
+        }
 
-    if (storedGuesses) {
-        this.selectedGuesses = storedGuesses;
-      }
-}
+        if (storedSong) {
+            this.selectedSong = parseInt(storedSong, 10)
+        }
+
+        if (storedArtist) {
+            this.selectedArtist = parseInt(storedArtist, 10)
+        }
+
+        if (storedGuesses) {
+            this.selectedGuesses = storedGuesses
+        }
+    }
 }

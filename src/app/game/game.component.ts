@@ -61,7 +61,7 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
         this.handleSongs('').unsubscribe()
-        this.saveDataToLocalStorage();
+        // this.saveDataToLocalStorage()
     }
 
     ngOnInit(): void {
@@ -70,7 +70,7 @@ export class GameComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.service.guessAmount; i++)
             this.livesRemaining.push(1)
         this.getSongs()
-        this.getDataFromLocalStorage();
+        // this.getDataFromLocalStorage()
     }
 
     getSongs() {
@@ -249,31 +249,26 @@ export class GameComponent implements OnInit, OnDestroy {
         console.log(this.songsArr)
     }
 
-    
-  
-  // Method to save data to local storage
-  saveDataToLocalStorage(): void {
-    localStorage.setItem('livesRemaining', JSON.stringify(this.livesRemaining));
-    localStorage.setItem('totalScore', String(this.totalScore));
-    localStorage.setItem('wrongCounter', String(this.wrongCounter));
-  }
-
-  // Method to get data from local storage
-  getDataFromLocalStorage(): void {
-    const storedLivesRemaining = localStorage.getItem('livesRemaining');
-    const storedTotalScore = localStorage.getItem('totalScore');
-    const storedWrongCounter = localStorage.getItem('wrongCounter');
-
-    if (storedLivesRemaining) {
-      this.livesRemaining = JSON.parse(storedLivesRemaining);
+    // Method to save data to local storage
+    saveDataToLocalStorage(): void {
+        // localStorage.setItem('livesRemaining', JSON.stringify(this.livesRemaining));
+        // localStorage.setItem('totalScore', String(this.totalScore))
+        // localStorage.setItem('wrongCounter', String(this.wrongCounter))
     }
 
-    if (storedTotalScore) {
-      this.totalScore = parseInt(storedTotalScore, 10);
+    // Method to get data from local storage
+    getDataFromLocalStorage(): void {
+        // const storedLivesRemaining = localStorage.getItem('livesRemaining')
+        // const storedTotalScore = localStorage.getItem('totalScore')
+        // const storedWrongCounter = localStorage.getItem('wrongCounter')
+        // if (storedLivesRemaining) {
+        //     this.livesRemaining = JSON.parse(storedLivesRemaining)
+        // }
+        // if (storedTotalScore) {
+        //     this.totalScore = parseInt(storedTotalScore, 10)
+        // }
+        // if (storedWrongCounter) {
+        //     this.wrongCounter = parseInt(storedWrongCounter, 10)
+        // }
     }
-
-    if (storedWrongCounter) {
-      this.wrongCounter = parseInt(storedWrongCounter, 10);
-    }
-  }
 }
