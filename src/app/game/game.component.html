@@ -69,7 +69,7 @@
                     : 'No Genre Selected'
             }}
         </h4>
-        <h4>
+        <h4 class="score-el">
             Score: {{ totalScore }} /
             {{ totalElapsed > -1 ? totalElapsed : 0 }}
         </h4>
@@ -109,27 +109,18 @@
             </div>
         </div>
     </div>
-
     <div class="image-container" *ngIf="artists.length > 0">
         <button
             class="artist-btn"
             *ngFor="let artist of artists"
+            [ngClass]="{ 'correct-guess': isCorrect, 'wrong-guess': isWrong }"
             [disabled]="guessed"
             (click)="checkArtistClicked(artist.name)">
-            <img [src]="artist.images[0].url" alt="..." />
+            <img [src]="artist.images[0].url" [alt]="artist.name" />
             <p>{{ artist.name }}</p>
         </button>
     </div>
-    <div *ngIf="isCorrect" class="win-div">
-        <h1>Correct! ✅</h1>
-    </div>
-    <div *ngIf="isWrong" class="win-div">
-        <h1>Incorrect ❌</h1>
-    </div>
     <div class="score-div">
-        <h2>
-            Score: {{ totalScore }} /
-            {{ totalElapsed > -1 ? totalElapsed : 0 }}
-        </h2>
+        <h2>who sings it?</h2>
     </div>
 </div>

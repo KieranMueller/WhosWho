@@ -22,7 +22,6 @@ import { Router } from '@angular/router'
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
 // game component UI is too cluttered
-// next prev song icon cursor not pointer when end of line? make background lighter to see them easier?
 
 @Component({
     selector: 'app-game',
