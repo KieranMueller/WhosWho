@@ -9,5 +9,6 @@ export class GeneralService {
     numArtists: number = 2
     numSongs: number = 1
     guessAmount: number = 10
+    isDarkMode: boolean = true
     constructor() {}
 }

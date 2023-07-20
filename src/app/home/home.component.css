@@ -8,6 +8,20 @@
     padding-top: 90px;
 }
 
+.light-mode {
+    background-color: var(--spotify-text-primary);
+    color: var(--spotify-background);
+}
+
+.light-mode-btns {
+    color: var(--spotify-text-primary);
+    background-color: var(--spotify-background);
+}
+
+.toggle-theme-btn {
+    margin-right: 10px;
+}
+
 .description {
     color: var(--spotify-text-secondary);
 }

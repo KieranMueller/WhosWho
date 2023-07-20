@@ -26,9 +26,11 @@ export class HomeComponent implements OnInit {
     authLoading: boolean = false
     configLoading: boolean = false
     token: String = ''
+    isDarkMode: boolean = true
 
     ngOnInit(): void {
         this.authLoading = true
+        this.isDarkMode = this.service.isDarkMode
         const storedTokenString = localStorage.getItem(TOKEN_KEY)
         if (storedTokenString) {
             const storedToken = JSON.parse(storedTokenString)
@@ -58,6 +60,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
+        this.service.isDarkMode = this.isDarkMode
         this.saveDataToLocalStorage()
     }
 
@@ -95,12 +98,19 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    changeTheme() {
+        this.isDarkMode = !this.isDarkMode
+        this.service.isDarkMode = !this.service.isDarkMode
+        this.saveDataToLocalStorage()
+    }
+
     // Method to save data to local storage
     saveDataToLocalStorage(): void {
         localStorage.setItem('selectedGenre', String(this.selectedGenre))
         localStorage.setItem('selectedSong', String(this.selectedSong))
         localStorage.setItem('selectedArtist', String(this.selectedArtist))
         localStorage.setItem('selectedGuesses', String(this.selectedGuesses))
+        localStorage.setItem('isDarkMode', String(this.isDarkMode))
     }
 
     // Method to get data from local storage
@@ -109,6 +119,7 @@ export class HomeComponent implements OnInit {
         const storedSong = localStorage.getItem('selectedSong')
         const storedArtist = localStorage.getItem('selectedArtist')
         const storedGuesses = localStorage.getItem('selectedGuesses')
+        const isDarkMode = localStorage.getItem('isDarkMode')
 
         if (storedGenre) {
             this.selectedGenre = storedGenre
@@ -125,6 +136,16 @@ export class HomeComponent implements OnInit {
 
         if (storedGuesses) {
             this.selectedGuesses = storedGuesses
+        }
+
+        if (isDarkMode) {
+            if (isDarkMode === 'true') {
+                this.service.isDarkMode = true
+                this.isDarkMode = true
+            } else {
+                this.service.isDarkMode = false
+                this.isDarkMode = false
+            }
         }
     }
 }

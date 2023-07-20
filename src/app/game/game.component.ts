@@ -22,6 +22,7 @@ import { Router } from '@angular/router'
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
 // game component UI is too cluttered
+// store light/dark mode in localstorage
 
 @Component({
     selector: 'app-game',
@@ -58,6 +59,7 @@ export class GameComponent implements OnInit, OnDestroy {
     scoreTracker: Array<number> = []
     rightStreak: number = 0
     wrongStreak: number = 0
+    isDarkMode: boolean = true
 
     constructor(
         private http: HttpClient,
@@ -75,6 +77,7 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.numSongs = this.service.numSongs
         this.selectedGenre = this.service.selectedGenre
+        this.isDarkMode = this.service.isDarkMode
         for (let i = 0; i < this.service.guessAmount; i++)
             this.livesRemaining.push(1)
         this.getLocalStorage()
@@ -295,6 +298,7 @@ export class GameComponent implements OnInit, OnDestroy {
         localStorage.setItem('autoplay', JSON.stringify(this.isAutoplay))
         localStorage.setItem('rightStreak', String(this.rightStreak))
         localStorage.setItem('wrongStreak', String(this.wrongStreak))
+        localStorage.setItem('isDarkMode', String(this.isDarkMode))
     }
 
     getLocalStorage() {
@@ -320,5 +324,14 @@ export class GameComponent implements OnInit, OnDestroy {
             const parsedWrongStreak = parseInt(savedWrongStreak, 10)
             this.wrongStreak = parsedWrongStreak
         }
+        const isDarkMode = localStorage.getItem('isDarkMode')
+        if (isDarkMode)
+            if (isDarkMode === 'true') {
+                this.isDarkMode = true
+                this.service.isDarkMode = true
+            } else {
+                this.isDarkMode = false
+                this.service.isDarkMode = false
+            }
     }
 }

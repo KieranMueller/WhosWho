@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<div class="container">
+<div class="container" [ngClass]="{ 'light-mode': !isDarkMode }">
     <div *ngIf="authLoading || configLoading">Loading...</div>
     <div *ngIf="!authLoading && !configLoading">
         <p>Genre</p>
@@ -10,6 +10,7 @@
         <select
             [(ngModel)]="selectedGenre"
             (ngModelChange)="setGenre($event)"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }"
             id="genre-select">
             <option value="">Select a genre</option>
             <option [value]="genre" *ngFor="let genre of genres">
@@ -22,7 +23,9 @@
         <p class="description">
             Specify the number of songs provided as hints per round
         </p>
-        <select [(ngModel)]="selectedSong">
+        <select
+            [(ngModel)]="selectedSong"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             <option *ngFor="let song of songs" [value]="song">
                 {{ song }}
             </option>
@@ -33,7 +36,9 @@
         <p class="description">
             Select the number of artists you must choose between for each round
         </p>
-        <select [(ngModel)]="selectedArtist">
+        <select
+            [(ngModel)]="selectedArtist"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             <option *ngFor="let artist of artists" [value]="artist">
                 {{ artist }}
             </option>
@@ -48,13 +53,18 @@
             Select difficulty, this adjusts how many lives you start with: Easy
             (10), Medium (5), Hard (1)
         </p>
-        <select [(ngModel)]="selectedGuesses">
+        <select
+            [(ngModel)]="selectedGuesses"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             <option *ngFor="let guess of guesses" [value]="guess">
                 {{ guess }}
             </option>
         </select>
         <br />
         <br />
+        <button class="toggle-theme-btn" (click)="changeTheme()">
+            Toggle Theme
+        </button>
         <button
             (click)="syncWithService()"
             routerLink="/game"
