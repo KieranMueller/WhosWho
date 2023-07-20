@@ -41,8 +41,20 @@
         <button class="btn" (click)="isViewingRecords = !isViewingRecords">
             Back
         </button>
-        <h4>Highest Correct Streak:</h4>
-        <h4>Highest Wrong Streak:</h4>
+        <h4>Highest Correct Streak: {{ rightStreak }}</h4>
+        <h4>Highest Wrong Streak: {{ wrongStreak }}</h4>
+        <div>
+            <h4>Lives Remaining:&nbsp;&nbsp;</h4>
+            <h1
+                *ngFor="let live of livesRemaining"
+                [ngClass]="{
+                    'lives-low': livesRemaining.length <= 3,
+                    'lives-medium': livesRemaining.length <= 5,
+                    'lives-high': livesRemaining.length <= 10
+                }">
+                ♪
+            </h1>
+        </div>
     </div>
     <div class="top-bar" *ngIf="!isViewingRecords">
         <button
