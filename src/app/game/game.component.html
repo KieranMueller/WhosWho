@@ -1,3 +1,4 @@
+<div class="home-btn" routerLink="">⌂</div>
 <div class="error-modal" *ngIf="isError">
     <div class="inner-error">
         <h1>⚠️ Oops! Something Went Wrong, Heading Home ⚠️</h1>
@@ -36,7 +37,18 @@
     </div>
 </div>
 <div class="container">
-    <div class="top-bar">
+    <div class="top-bar view-records-div" *ngIf="isViewingRecords">
+        <button class="btn" (click)="isViewingRecords = !isViewingRecords">
+            Back
+        </button>
+        <h4>Highest Correct Streak:</h4>
+        <h4>Highest Wrong Streak:</h4>
+    </div>
+    <div class="top-bar" *ngIf="!isViewingRecords">
+        <!-- <button class="btn" routerLink="">Home</button> -->
+        <button class="btn" (click)="isViewingRecords = !isViewingRecords">
+            View Records
+        </button>
         <h4>High Score: {{ highScore }}</h4>
         <div>
             <h4>Lives Remaining:&nbsp;&nbsp;</h4>
@@ -63,7 +75,6 @@
         </h4>
     </div>
     <div class="top-strip">
-        <button class="btn" routerLink="">Home</button>
         <button class="btn" (click)="getSongs()">
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
