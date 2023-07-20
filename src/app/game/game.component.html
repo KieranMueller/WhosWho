@@ -40,7 +40,15 @@
         <h4>High Score: {{ highScore }}</h4>
         <div>
             <h4>Lives Remaining:&nbsp;&nbsp;</h4>
-            <h1 *ngFor="let live of livesRemaining" class="lives-symbol">♪</h1>
+            <h1
+                *ngFor="let live of livesRemaining"
+                [ngClass]="{
+                    'lives-low': livesRemaining.length <= 3,
+                    'lives-medium': livesRemaining.length <= 5,
+                    'lives-high': livesRemaining.length <= 10
+                }">
+                ♪
+            </h1>
         </div>
         <h4>
             {{

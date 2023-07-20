@@ -17,8 +17,16 @@
     cursor: pointer;
 }
 
-.lives-symbol {
+.lives-high {
     color: var(--spotify-green);
+}
+
+.lives-medium {
+    color: rgb(255, 255, 146);
+}
+
+.lives-low {
+    color: lightcoral;
 }
 
 .error-modal {
