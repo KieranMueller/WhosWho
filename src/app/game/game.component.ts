@@ -22,7 +22,8 @@ import { Router } from '@angular/router'
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
 // game component UI is too cluttered
-// store light/dark mode in localstorage
+// style scroll bar
+// get rid of artists scroll bar
 
 @Component({
     selector: 'app-game',
