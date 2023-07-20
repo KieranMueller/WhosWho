@@ -37,11 +37,18 @@
 </div>
 <div class="container">
     <div class="top-bar">
+        <h4>High Score: {{ highScore }}</h4>
         <div>
             <h4>Lives Remaining:&nbsp;&nbsp;</h4>
             <h1 *ngFor="let live of livesRemaining" class="lives-symbol">♪</h1>
         </div>
-        <h4>{{ selectedGenre ? selectedGenre : 'No Genre Selected' }}</h4>
+        <h4>
+            {{
+                selectedGenre
+                    ? (selectedGenre | titlecase)
+                    : 'No Genre Selected'
+            }}
+        </h4>
         <h4>
             Score: {{ totalScore }} /
             {{ totalElapsed > -1 ? totalElapsed : 0 }}
