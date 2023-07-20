@@ -18,7 +18,7 @@ import { Router } from '@angular/router'
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
 // work on contact/about the creators page
-// correct artist is frequently in the same index
+// don't allow same song to ever be played twice in one game
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
 // game component UI is too cluttered
@@ -123,7 +123,6 @@ export class GameComponent implements OnInit, OnDestroy {
             )
             .subscribe({
                 next: (obj: any) => {
-                    this.songsArr.push(this.correctArtistData)
                     let i = 0
                     let j = 0
                     while (j < this.numSongs - 1) {
@@ -134,7 +133,7 @@ export class GameComponent implements OnInit, OnDestroy {
                             if (
                                 track.preview_url != null &&
                                 !preview_urls.includes(track.preview_url) &&
-                                i < this.numSongs - 1
+                                i < this.numSongs
                             ) {
                                 this.songsArr.push(track)
                                 i++
@@ -235,6 +234,14 @@ export class GameComponent implements OnInit, OnDestroy {
         this.nextDisabled = false
         if (this.songIndex > 0) this.songIndex -= 1
         if (this.songIndex === 0) this.prevDisabled = true
+    }
+
+    getUrl(): string {
+        let message =
+            `I correctly guessed ${this.totalScore} artists out of ${this.totalElapsed}` +
+            ` playing WhosWho! See if you can beat my score! http://localhost:4200` +
+            ` %23WhosWho %23GuessTheArtist %23Spotify`
+        return `https://twitter.com/intent/tweet?text=${message}`
     }
 
     redirectHome(): void {
