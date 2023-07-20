@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import fetchFromSpotify, { request } from '../../services/api'
-import { HttpClient } from '@angular/common/http'
 import { GeneralService } from '../general.service'
 
 const AUTH_ENDPOINT =
@@ -14,7 +13,7 @@ const TOKEN_KEY = 'whos-who-access-token'
 })
 export class HomeComponent implements OnInit {
     static token: string
-    constructor(private http: HttpClient, private service: GeneralService) {}
+    constructor(private service: GeneralService) {}
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
     songs: number[] = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -68,7 +67,6 @@ export class HomeComponent implements OnInit {
             token: t,
             endpoint: 'recommendations/available-genre-seeds',
         })
-        console.log(response)
         this.genres = response.genres
         this.configLoading = false
     }
@@ -76,37 +74,6 @@ export class HomeComponent implements OnInit {
     setGenre(selectedGenre: any) {
         this.selectedGenre = selectedGenre
         this.service.selectedGenre = selectedGenre
-        console.log(this.selectedGenre)
-        console.log(TOKEN_KEY)
-    }
-
-    setSong(selectedSong: any) {
-        this.selectedSong = selectedSong
-        console.log(this.selectedSong)
-        console.log(TOKEN_KEY)
-    }
-
-    setArtist(selectedArtist: any) {
-        this.selectedArtist = selectedArtist
-        console.log(this.selectedArtist)
-        console.log(TOKEN_KEY)
-    }
-
-    setGuesses(selectedGuesses: any) {
-        this.selectedGuesses = selectedGuesses
-        console.log(this.selectedGuesses)
-        console.log(TOKEN_KEY)
-    }
-
-    testApi() {
-        return this.http
-            .get(
-                'https://api.spotify.com/v1/search?q=genre%3Ametal&type=track',
-                { headers: { Authorization: `Bearer ${this.token}` } }
-            )
-            .subscribe(data => {
-                console.log(data)
-            })
     }
 
     syncWithService() {

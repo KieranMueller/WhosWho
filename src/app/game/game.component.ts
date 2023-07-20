@@ -63,7 +63,6 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
         this.handleSongs('').unsubscribe()
-        this.saveDataToLocalStorage()
     }
 
     ngOnInit(): void {
@@ -72,7 +71,6 @@ export class GameComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.service.guessAmount; i++)
             this.livesRemaining.push(1)
         this.getSongs()
-        this.getDataFromLocalStorage()
     }
 
     getSongs() {
@@ -220,20 +218,20 @@ export class GameComponent implements OnInit, OnDestroy {
         }, 100)
     }
 
-    nextSong() {
+    nextSong(): void {
         this.prevDisabled = false
         if (this.songIndex < this.songsArr.length - 1) this.songIndex += 1
         if (this.songIndex === this.songsArr.length - 1)
             this.nextDisabled = true
     }
 
-    prevSong() {
+    prevSong(): void {
         this.nextDisabled = false
         if (this.songIndex > 0) this.songIndex -= 1
         if (this.songIndex === 0) this.prevDisabled = true
     }
 
-    redirectHome() {
+    redirectHome(): void {
         this.isError = true
         setTimeout(() => {
             this.redirectTime -= 1000
@@ -244,38 +242,5 @@ export class GameComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('')
             this.isError = false
         }, this.redirectTime)
-    }
-
-    test() {
-        console.log(this.availableSongs)
-        console.log(this.songsArr)
-    }
-
-    // Method to save data to local storage
-    saveDataToLocalStorage(): void {
-        // if (this.livesRemaining.length > 0)
-        //     localStorage.setItem(
-        //         'livesRemaining',
-        //         JSON.stringify(this.livesRemaining)
-        //     )
-        // localStorage.setItem('totalScore', String(this.totalScore))
-        // localStorage.setItem('wrongCounter', String(this.wrongCounter))
-    }
-
-    // Method to get data from local storage
-    getDataFromLocalStorage(): void {
-        // const storedLivesRemaining = localStorage.getItem('livesRemaining')
-        // const storedTotalScore = localStorage.getItem('totalScore')
-        // const storedWrongCounter = localStorage.getItem('wrongCounter')
-        // if (storedLivesRemaining) {
-        //     if (storedLivesRemaining.length > 0)
-        //         this.livesRemaining = JSON.parse(storedLivesRemaining)
-        // }
-        // if (storedTotalScore) {
-        //     this.totalScore = parseInt(storedTotalScore, 10)
-        // }
-        // if (storedWrongCounter) {
-        //     this.wrongCounter = parseInt(storedWrongCounter, 10)
-        // }
     }
 }
