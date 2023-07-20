@@ -55,6 +55,9 @@ export class GameComponent implements OnInit, OnDestroy {
     prevDisabled: boolean = true
     highScore: number = 0
     isViewingRecords: boolean = false
+    scoreTracker: Array<number> = []
+    rightStreak: number = 0
+    wrongStreak: number = 0
 
     constructor(
         private http: HttpClient,
@@ -65,6 +68,7 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
         this.handleSongs('').unsubscribe()
+        this.calculateStreaks()
         this.saveLocalStorage()
     }
 
@@ -217,10 +221,33 @@ export class GameComponent implements OnInit, OnDestroy {
             this.totalScore++
             if (this.totalScore > this.highScore)
                 this.highScore = this.totalScore
-        } else this.isWrong = true
+            this.scoreTracker.push(1)
+        } else {
+            this.isWrong = true
+            this.scoreTracker.push(0)
+        }
         setTimeout(() => {
             this.getSongs()
         }, 100)
+    }
+
+    calculateStreaks() {
+        let right = 0
+        let wrong = 0
+        let rightStreak = 0
+        let wrongStreak = 0
+        for (let i = 0; i < this.scoreTracker.length; i++) {
+            if (this.scoreTracker[i] === 1) {
+                right++
+            } else right = 0
+            if (this.scoreTracker[i] === 0) {
+                wrong++
+            } else wrong = 0
+            if (right > rightStreak) rightStreak = right
+            if (wrong > wrongStreak) wrongStreak = wrong
+        }
+        if (rightStreak > this.rightStreak) this.rightStreak = rightStreak
+        if (wrongStreak > this.wrongStreak) this.wrongStreak = wrongStreak
     }
 
     nextSong(): void {
@@ -266,6 +293,8 @@ export class GameComponent implements OnInit, OnDestroy {
     saveLocalStorage() {
         localStorage.setItem('highScore', String(this.highScore))
         localStorage.setItem('autoplay', JSON.stringify(this.isAutoplay))
+        localStorage.setItem('rightStreak', String(this.rightStreak))
+        localStorage.setItem('wrongStreak', String(this.wrongStreak))
     }
 
     getLocalStorage() {
@@ -281,5 +310,15 @@ export class GameComponent implements OnInit, OnDestroy {
             savedAutoplay === 'true'
                 ? (this.isAutoplay = true)
                 : (this.isAutoplay = false)
+        const savedRightStreak = localStorage.getItem('rightStreak')
+        if (savedRightStreak) {
+            const parsedRightStreak = parseInt(savedRightStreak, 10)
+            this.rightStreak = parsedRightStreak
+        }
+        const savedWrongStreak = localStorage.getItem('wrongStreak')
+        if (savedWrongStreak) {
+            const parsedWrongStreak = parseInt(savedWrongStreak, 10)
+            this.wrongStreak = parsedWrongStreak
+        }
     }
 }
