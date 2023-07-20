@@ -21,6 +21,8 @@ import { Router } from '@angular/router'
 // make contact/about the creators page
 // turn autoplay into toggle (like an app toggle)
 // correct artist is frequently in the same index
+// save toggle autoplay in local storage
+// split this component into smaller components, someday... especially toggle autoplay
 
 @Component({
     selector: 'app-game',
