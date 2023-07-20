@@ -54,7 +54,13 @@ export class HomeComponent implements OnInit {
             this.service.token = newToken.value
             this.loadGenres(newToken.value)
         })
+        this.getDataFromLocalStorage();
     }
+
+    ngOnDestroy(): void {
+        
+        this.saveDataToLocalStorage();
+      }
 
     loadGenres = async (t: any) => {
         this.configLoading = true
@@ -123,4 +129,36 @@ export class HomeComponent implements OnInit {
          } 
 
     }
+
+    // Method to save data to local storage
+  saveDataToLocalStorage(): void {
+    localStorage.setItem('selectedGenre', String(this.selectedGenre));
+    localStorage.setItem('selectedSong', String(this.selectedSong));
+    localStorage.setItem('selectedArtist', String(this.selectedArtist));
+    localStorage.setItem('selectedGuesses', String(this.selectedGuesses));
+  }
+
+  // Method to get data from local storage
+  getDataFromLocalStorage(): void {
+    const storedGenre = localStorage.getItem('selectedGenre');
+    const storedSong = localStorage.getItem('selectedSong');
+    const storedArtist = localStorage.getItem('selectedArtist');
+    const storedGuesses = localStorage.getItem('selectedGuesses');
+
+    if (storedGenre) {
+      this.selectedGenre = storedGenre;
+    }
+
+    if (storedSong) {
+      this.selectedSong = parseInt(storedSong, 10);
+    }
+
+    if (storedArtist) {
+      this.selectedArtist = parseInt(storedArtist, 10);
+    }
+
+    if (storedGuesses) {
+        this.selectedGuesses = storedGuesses;
+      }
+}
 }
