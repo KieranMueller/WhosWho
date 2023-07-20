@@ -20,6 +20,8 @@ import { Router } from '@angular/router'
 // make some configuration setting sliders not dropdowns?
 // make contact/about the creators page
 // turn autoplay into toggle (like an app toggle)
+// stored genre not loading
+// are setGenre, setSong, setArtist, setGuesses being used in homeComponent?
 
 @Component({
     selector: 'app-game',
@@ -61,7 +63,7 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.getSongs().unsubscribe()
         this.handleSongs('').unsubscribe()
-        // this.saveDataToLocalStorage()
+        this.saveDataToLocalStorage()
     }
 
     ngOnInit(): void {
@@ -70,7 +72,7 @@ export class GameComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.service.guessAmount; i++)
             this.livesRemaining.push(1)
         this.getSongs()
-        // this.getDataFromLocalStorage()
+        this.getDataFromLocalStorage()
     }
 
     getSongs() {
@@ -251,7 +253,11 @@ export class GameComponent implements OnInit, OnDestroy {
 
     // Method to save data to local storage
     saveDataToLocalStorage(): void {
-        // localStorage.setItem('livesRemaining', JSON.stringify(this.livesRemaining));
+        // if (this.livesRemaining.length > 0)
+        //     localStorage.setItem(
+        //         'livesRemaining',
+        //         JSON.stringify(this.livesRemaining)
+        //     )
         // localStorage.setItem('totalScore', String(this.totalScore))
         // localStorage.setItem('wrongCounter', String(this.wrongCounter))
     }
@@ -262,7 +268,8 @@ export class GameComponent implements OnInit, OnDestroy {
         // const storedTotalScore = localStorage.getItem('totalScore')
         // const storedWrongCounter = localStorage.getItem('wrongCounter')
         // if (storedLivesRemaining) {
-        //     this.livesRemaining = JSON.parse(storedLivesRemaining)
+        //     if (storedLivesRemaining.length > 0)
+        //         this.livesRemaining = JSON.parse(storedLivesRemaining)
         // }
         // if (storedTotalScore) {
         //     this.totalScore = parseInt(storedTotalScore, 10)

@@ -145,6 +145,7 @@ export class HomeComponent implements OnInit {
 
         if (storedGenre) {
             this.selectedGenre = storedGenre
+            this.service.selectedGenre = storedGenre
         }
 
         if (storedSong) {
