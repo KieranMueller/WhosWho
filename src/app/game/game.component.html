@@ -1,5 +1,7 @@
-<div class="home-btn" routerLink="">⌂</div>
-<div class="error-modal" *ngIf="isError">
+<div
+    class="error-modal"
+    *ngIf="isError"
+    [ngClass]="{ 'light-mode': !isDarkMode }">
     <div class="inner-error">
         <h1>⚠️ Oops! Something Went Wrong, Heading Home ⚠️</h1>
         <h1>{{ countdown }} . . . 🚀</h1>
@@ -36,9 +38,18 @@
         </h2>
     </div>
 </div>
-<div class="container">
+<div class="container" [ngClass]="{ 'light-mode': !isDarkMode }">
     <div class="top-bar view-records-div" *ngIf="isViewingRecords">
-        <button class="btn" (click)="isViewingRecords = !isViewingRecords">
+        <div
+            class="home-btn"
+            routerLink=""
+            [ngClass]="{ 'light-mode': !isDarkMode }">
+            ⌂
+        </div>
+        <button
+            class="btn"
+            (click)="isViewingRecords = !isViewingRecords"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             Back
         </button>
         <h4>Highest Correct Streak: {{ rightStreak }}</h4>
@@ -57,7 +68,20 @@
         </div>
     </div>
     <div class="top-bar" *ngIf="!isViewingRecords">
+        <div
+            class="home-btn"
+            routerLink=""
+            [ngClass]="{ 'light-mode': !isDarkMode }">
+            ⌂
+        </div>
         <button
+            class="toggle-theme-btn btn"
+            (click)="isDarkMode = !isDarkMode"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
+            Toggle Theme
+        </button>
+        <button
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }"
             class="btn view-records-btn"
             (click)="isViewingRecords = !isViewingRecords">
             View Records
@@ -88,7 +112,10 @@
         </h4>
     </div>
     <div class="top-strip">
-        <button class="btn" (click)="getSongs()">
+        <button
+            class="btn"
+            (click)="getSongs()"
+            [ngClass]="{ 'light-mode-btns': !isDarkMode }">
             {{ hitPlay ? 'Skip Track' : 'Play' }}
         </button>
         <label class="toggle">
@@ -98,7 +125,9 @@
                 type="checkbox"
                 [checked]="isAutoplay"
                 (change)="isAutoplay = !isAutoplay" />
-            <div class="toggle-switch"></div>
+            <div
+                class="toggle-switch"
+                [ngClass]="{ 'toggle-switch-light': !isDarkMode }"></div>
         </label>
         <div class="song-div" *ngIf="availableSongs.length > 0">
             <audio
@@ -128,7 +157,11 @@
         <button
             class="artist-btn"
             *ngFor="let artist of artists"
-            [ngClass]="{ 'correct-guess': isCorrect, 'wrong-guess': isWrong }"
+            [ngClass]="{
+                'correct-guess': isCorrect,
+                'wrong-guess': isWrong,
+                'light-mode-btns': !isDarkMode
+            }"
             [disabled]="guessed"
             (click)="checkArtistClicked(artist.name)">
             <img [src]="artist.images[0].url" [alt]="artist.name" class="img" />
