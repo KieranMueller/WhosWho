@@ -177,6 +177,14 @@ img {
     border-radius: 10px;
 }
 
+.correct-guess {
+    background-color: var(--spotify-green);
+}
+
+.wrong-guess {
+    background-color: rgb(249, 106, 106);
+}
+
 .win-div {
     margin-top: 10px;
     display: flex;
@@ -187,6 +195,13 @@ img {
     margin-top: 15px;
     display: flex;
     justify-content: center;
+}
+
+.score-el {
+    background-color: var(--spotify-green);
+    color: black;
+    padding: 2px 10px;
+    border-radius: 10px;
 }
 
 .song-div {
