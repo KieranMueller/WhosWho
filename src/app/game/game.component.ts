@@ -9,8 +9,8 @@ import {
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
-// fun data - Longest right answer streak?
 // Tweak UI, css, mobile friendly, loading pages?
+// add highest streaks in view record strip, local storage
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
@@ -21,7 +21,8 @@ import { Router } from '@angular/router'
 // correct artist is frequently in the same index
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
-// add highest streaks in view record strip, local storage
+// game component UI is too cluttered
+// next prev song icon cursor not pointer when end of line? make background lighter to see them easier?
 
 @Component({
     selector: 'app-game',
