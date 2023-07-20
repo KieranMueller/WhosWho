@@ -19,6 +19,7 @@ import { Router } from '@angular/router'
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
 // make contact/about the creators page
+// turn autoplay into toggle (like an app toggle)
 
 @Component({
     selector: 'app-game',
