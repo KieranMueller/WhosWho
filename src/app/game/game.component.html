@@ -95,12 +95,14 @@
                 [src]="songsArr[songIndex].preview_url"></audio>
             <div class="toggle-song-div" *ngIf="songsArr.length > 1">
                 <img
+                    class="img"
                     (click)="prevSong()"
                     [ngClass]="{ 'cursor-default': prevDisabled }"
                     class="song-skip prev-song"
                     src="../../assets/images/next-song.png"
                     alt="previous song" />
                 <img
+                    class="img"
                     (click)="nextSong()"
                     [ngClass]="{ 'cursor-default': nextDisabled }"
                     class="song-skip next-song"
@@ -117,11 +119,17 @@
             [ngClass]="{ 'correct-guess': isCorrect, 'wrong-guess': isWrong }"
             [disabled]="guessed"
             (click)="checkArtistClicked(artist.name)">
-            <img [src]="artist.images[0].url" [alt]="artist.name" />
+            <img [src]="artist.images[0].url" [alt]="artist.name" class="img" />
             <p>{{ artist.name }}</p>
         </button>
     </div>
     <div class="score-div">
         <h2>who sings it?</h2>
     </div>
+    <a class="twitter-share-button" [href]="getUrl()" target="_blank">
+        <img
+            class="twitter-logo"
+            src="../../assets/images/twitter-logo.png"
+            alt="twitter logo" />
+    </a>
 </div>
