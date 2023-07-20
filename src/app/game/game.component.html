@@ -93,18 +93,18 @@
                 controls
                 [src]="songsArr[songIndex].preview_url"></audio>
             <div class="toggle-song-div" *ngIf="songsArr.length > 1">
-                <button
-                    class="btn"
+                <img
                     (click)="prevSong()"
-                    [disabled]="prevDisabled">
-                    Previous Song
-                </button>
-                <button
-                    class="btn"
+                    [ngClass]="{ 'cursor-default': prevDisabled }"
+                    class="song-skip prev-song"
+                    src="../../assets/images/next-song.png"
+                    alt="previous song" />
+                <img
                     (click)="nextSong()"
-                    [disabled]="nextDisabled">
-                    Next Song
-                </button>
+                    [ngClass]="{ 'cursor-default': nextDisabled }"
+                    class="song-skip next-song"
+                    src="../../assets/images/next-song.png"
+                    alt="next song" />
                 <p>{{ songIndex + 1 }}/{{ songsArr.length }}</p>
             </div>
         </div>

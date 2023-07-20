@@ -196,13 +196,32 @@ img {
     flex-direction: column;
 }
 
-/* toggle switch css */
+.song-skip {
+    object-fit: cover;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+.prev-song {
+    scale: -1;
+}
 
 .toggle-song-div {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--spotify-green);
+    border-radius: 20px;
+    padding: 2px 20px;
+    color: black;
 }
+
+/* toggle switch css */
 
 .toggle {
     cursor: pointer;
