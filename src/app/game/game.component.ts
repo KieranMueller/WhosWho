@@ -18,10 +18,8 @@ import { Router } from '@angular/router'
 // style things like spotify
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
-// make contact/about the creators page
-// turn autoplay into toggle (like an app toggle)
+// work on contact/about the creators page
 // correct artist is frequently in the same index
-// save toggle autoplay in local storage
 // split this component into smaller components, someday... especially toggle autoplay
 
 @Component({
@@ -252,6 +250,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     saveLocalStorage() {
         localStorage.setItem('highScore', String(this.highScore))
+        localStorage.setItem('autoplay', JSON.stringify(this.isAutoplay))
     }
 
     getLocalStorage() {
@@ -262,5 +261,10 @@ export class GameComponent implements OnInit, OnDestroy {
                 this.highScore = parsedSavedHighScore
             }
         }
+        const savedAutoplay = localStorage.getItem('autoplay')
+        if (savedAutoplay)
+            savedAutoplay === 'true'
+                ? (this.isAutoplay = true)
+                : (this.isAutoplay = false)
     }
 }

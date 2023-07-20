@@ -23,10 +23,18 @@
 
 .lives-medium {
     color: rgb(255, 255, 146);
+    animation: animate-lives 1s infinite;
 }
 
 .lives-low {
-    color: lightcoral;
+    color: rgb(249, 106, 106);
+    animation: animate-lives 0.5s infinite;
+}
+
+@keyframes animate-lives {
+    50% {
+        scale: 1.2;
+    }
 }
 
 .error-modal {
