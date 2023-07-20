@@ -6,6 +6,14 @@
     margin-top: 10px;
 }
 
+.home-btn {
+    cursor: pointer;
+    font-size: 60px;
+    position: fixed;
+    top: 0;
+    left: 30px;
+}
+
 .btn {
     display: flex;
     justify-content: center;
@@ -19,6 +27,7 @@
 
 .lives-high {
     color: var(--spotify-green);
+    animation: animate-lives 3s infinite;
 }
 
 .lives-medium {

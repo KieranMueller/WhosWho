@@ -14,13 +14,14 @@ import { Router } from '@angular/router'
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
 // share score on twitter option?
-// make lives red and animated when almost dead?
 // style things like spotify
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
 // work on contact/about the creators page
 // correct artist is frequently in the same index
 // split this component into smaller components, someday... especially toggle autoplay
+// make audio player more attractive
+// add highest streaks in view record strip, local storage
 
 @Component({
     selector: 'app-game',
@@ -53,6 +54,7 @@ export class GameComponent implements OnInit, OnDestroy {
     nextDisabled: boolean = false
     prevDisabled: boolean = true
     highScore: number = 0
+    isViewingRecords: boolean = false
 
     constructor(
         private http: HttpClient,
@@ -246,6 +248,12 @@ export class GameComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('')
             this.isError = false
         }, this.redirectTime)
+    }
+
+    recordsTimeout() {
+        setTimeout(() => {
+            this.isViewingRecords = true
+        }, 1000)
     }
 
     saveLocalStorage() {
