@@ -31,6 +31,10 @@ import { Router } from '@angular/router'
 // figure out query string to get more tracks to select from, and more artists per genre?
 // light mode artist card background not turning red or green when selecting choice
 // highest wrong streak isn't working
+// error message 'must choose genre' if none selected, on disabled button?
+// make home page stretch to bottom of screen
+// add play again button? restart same game configs
+// add quick start and/or random game, load random configs
 
 @Component({
     selector: 'app-game',
