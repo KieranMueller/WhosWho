@@ -139,6 +139,8 @@
                     class="song-skip prev-song"
                     src="../../assets/images/next-song.png"
                     alt="previous song" />
+                <p>{{ songIndex + 1 }}/{{ songsArr.length }}</p>
+
                 <img
                     class="img"
                     (click)="nextSong()"
@@ -146,7 +148,6 @@
                     class="song-skip next-song"
                     src="../../assets/images/next-song.png"
                     alt="next song" />
-                <p>{{ songIndex + 1 }}/{{ songsArr.length }}</p>
             </div>
         </div>
     </div>
@@ -168,10 +169,13 @@
     <div class="score-div">
         <h2>who sings it?</h2>
     </div>
-    <a class="twitter-share-button" [href]="getUrl()" target="_blank">
-        <img
-            class="twitter-logo"
-            src="../../assets/images/twitter-logo.png"
-            alt="twitter logo" />
-    </a>
+    <div class="twitter-div">
+        <a class="twitter-share-button" [href]="getUrl()" target="_blank">
+            <img
+                class="twitter-logo"
+                src="../../assets/images/twitter-logo.png"
+                alt="twitter logo" />
+        </a>
+        <p>Share your score on Twitter!</p>
+    </div>
 </div>

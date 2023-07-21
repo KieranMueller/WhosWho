@@ -13,7 +13,6 @@ import { Router } from '@angular/router'
 // add highest streaks in view record strip, local storage
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
-// share score on twitter option?
 // style things like spotify
 // internet slow error message
 // make some configuration setting sliders not dropdowns?
@@ -22,7 +21,6 @@ import { Router } from '@angular/router'
 // split this component into smaller components, someday... especially toggle autoplay
 // make audio player more attractive
 // game component UI is too cluttered
-// style scroll bar
 // get rid of artists scroll bar
 
 @Component({
@@ -296,7 +294,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     saveLocalStorage() {
         localStorage.setItem('highScore', String(this.highScore))
-        localStorage.setItem('autoplay', JSON.stringify(this.isAutoplay))
+        localStorage.setItem('autoplay', String(this.isAutoplay))
         localStorage.setItem('rightStreak', String(this.rightStreak))
         localStorage.setItem('wrongStreak', String(this.wrongStreak))
         localStorage.setItem('isDarkMode', String(this.isDarkMode))
