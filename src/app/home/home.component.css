@@ -56,3 +56,7 @@ button:enabled {
     cursor: pointer;
     background-color: var(--spotify-green);
 }
+
+button:disabled {
+    opacity: 0.5;
+}
