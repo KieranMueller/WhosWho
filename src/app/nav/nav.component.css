@@ -20,6 +20,9 @@
     padding: 5px 15px;
     text-align: center;
     border: none;
+    outline: none;
+    color: var(--spotify-background);
+    background-color: var(--spotify-text-primary);
     cursor: pointer;
 }
 

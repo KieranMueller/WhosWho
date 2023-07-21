@@ -9,7 +9,6 @@ import {
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
-// Tweak UI, css, mobile friendly, loading pages?
 // add highest streaks in view record strip, local storage
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
@@ -26,6 +25,10 @@ import { Router } from '@angular/router'
 // change back button when viewing records
 // make game over page better, option to view stats, right vs wrong and show answers etc
 // might be able to remove while loop from handle songs method
+// I keep getting the same songs first from artists, randomize the songs
+// tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
+// make custom audio player
+// mobile routing issue, page not found instead of custom modal
 
 @Component({
     selector: 'app-game',
