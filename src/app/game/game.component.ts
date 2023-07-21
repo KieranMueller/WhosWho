@@ -9,11 +9,9 @@ import {
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
-// add highest streaks in view record strip, local storage
 // add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
 // style things like spotify
-// internet slow error message
 // make some configuration setting sliders not dropdowns?
 // work on contact/about the creators page
 // don't allow same song to ever be played twice in one game
@@ -28,7 +26,10 @@ import { Router } from '@angular/router'
 // I keep getting the same songs first from artists, randomize the songs
 // tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
 // make custom audio player
-// mobile routing issue, page not found instead of custom modal
+// mobile routing issue, showing page not found instead of custom modal
+// fix share as tweet content
+// figure out query string to get more tracks to select from, and more artists per genre?
+// light mode artist card background not turning red or green when selecting choice
 
 @Component({
     selector: 'app-game',
@@ -136,24 +137,19 @@ export class GameComponent implements OnInit, OnDestroy {
             )
             .subscribe({
                 next: (obj: any) => {
-                    let i = 0
-                    let j = 0
-                    while (j < this.numSongs) {
-                        let preview_urls: Array<string> = []
-                        for (let song of this.songsArr)
-                            preview_urls.push(song.preview_url)
-                        for (let track of obj.tracks) {
-                            if (
-                                track.preview_url != null &&
-                                !preview_urls.includes(track.preview_url) &&
-                                i < this.numSongs
-                            ) {
-                                this.songsArr.push(track)
-                                i++
-                            }
-                        }
-                        j++
-                    }
+                    let randomTempTracks: Array<any> = []
+                    for (let track of obj.tracks)
+                        randomTempTracks.splice(
+                            Math.floor(Math.random() * randomTempTracks.length),
+                            0,
+                            track
+                        )
+                    for (let i = 0; i < this.numSongs; i++)
+                        this.songsArr.splice(
+                            Math.floor(Math.random() * this.songsArr.length),
+                            0,
+                            randomTempTracks[i]
+                        )
                 },
                 error: e => {
                     console.log(e)
@@ -274,8 +270,8 @@ export class GameComponent implements OnInit, OnDestroy {
 
     getUrl(): string {
         let message =
-            `I correctly guessed ${this.totalScore} artists out of ${this.totalElapsed}` +
-            ` playing WhosWho! See if you can beat my score! http://localhost:4200` +
+            `I correctly guessed ${this.totalScore} ${this.selectedGenre} artists out of ${this.totalElapsed}` +
+            ` playing WhosWho! See if you can beat my score! https://spotify-whos-who.netlify.app/` +
             ` %23WhosWho %23GuessTheArtist %23Spotify`
         return `https://twitter.com/intent/tweet?text=${message}`
     }
