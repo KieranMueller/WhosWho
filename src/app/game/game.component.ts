@@ -22,6 +22,10 @@ import { Router } from '@angular/router'
 // make audio player more attractive
 // game component UI is too cluttered
 // get rid of artists scroll bar
+// add settings page (option to view album covers instead of artist pics?)
+// change back button when viewing records
+// make game over page better, option to view stats, right vs wrong and show answers etc
+// might be able to remove while loop from handle songs method
 
 @Component({
     selector: 'app-game',
@@ -131,7 +135,7 @@ export class GameComponent implements OnInit, OnDestroy {
                 next: (obj: any) => {
                     let i = 0
                     let j = 0
-                    while (j < this.numSongs - 1) {
+                    while (j < this.numSongs) {
                         let preview_urls: Array<string> = []
                         for (let song of this.songsArr)
                             preview_urls.push(song.preview_url)
