@@ -5,16 +5,26 @@ import { RouterModule, Routes } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component'
-import { HomeComponent } from './home/home.component';
-import { GameComponent } from './game/game.component';
-import { AppRoutingModule } from './app-routing.module';
-import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component'
+import { GameComponent } from './game/game.component'
+import { AppRoutingModule } from './app-routing.module'
+import { NavComponent } from './nav/nav.component'
 import { AboutComponent } from './about/about.component'
 
-const routes: Routes = [{ path: '', component: HomeComponent }]
+const routes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'game', component: GameComponent },
+    { path: 'about', component: AboutComponent },
+]
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, GameComponent, NavComponent, AboutComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        GameComponent,
+        NavComponent,
+        AboutComponent,
+    ],
     imports: [
         BrowserModule,
         FormsModule,
