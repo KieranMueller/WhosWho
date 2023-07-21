@@ -39,15 +39,16 @@
     width: 6rem;
 }
 
-select {
-    margin-top: 5px;
-}
-
 select,
 button {
+    color: var(--spotify-background);
+    background-color: var(--spotify-text-primary);
     border-radius: 10px;
     padding: 4px;
+    margin-top: 5px;
     text-align: center;
+    border: none;
+    outline: none;
     border: none;
 }
 
