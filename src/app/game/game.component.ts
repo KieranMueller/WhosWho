@@ -30,6 +30,7 @@ import { Router } from '@angular/router'
 // fix share as tweet content
 // figure out query string to get more tracks to select from, and more artists per genre?
 // light mode artist card background not turning red or green when selecting choice
+// highest wrong streak isn't working
 
 @Component({
     selector: 'app-game',
@@ -139,11 +140,14 @@ export class GameComponent implements OnInit, OnDestroy {
                 next: (obj: any) => {
                     let randomTempTracks: Array<any> = []
                     for (let track of obj.tracks)
-                        randomTempTracks.splice(
-                            Math.floor(Math.random() * randomTempTracks.length),
-                            0,
-                            track
-                        )
+                        if (track.preview_url != null)
+                            randomTempTracks.splice(
+                                Math.floor(
+                                    Math.random() * randomTempTracks.length
+                                ),
+                                0,
+                                track
+                            )
                     for (let i = 0; i < this.numSongs; i++)
                         this.songsArr.splice(
                             Math.floor(Math.random() * this.songsArr.length),
