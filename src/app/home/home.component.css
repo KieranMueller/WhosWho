@@ -44,12 +44,16 @@ button {
     color: var(--spotify-background);
     background-color: var(--spotify-text-primary);
     border-radius: 10px;
-    padding: 4px;
+    padding: 5px;
     margin-top: 5px;
     text-align: center;
     border: none;
     outline: none;
     border: none;
+}
+
+button {
+    padding: 10px;
 }
 
 button:enabled {
@@ -68,5 +72,10 @@ button:disabled {
 
     .description {
         font-size: 20px;
+    }
+
+    select,
+    button {
+        font-size: 16px;
     }
 }
