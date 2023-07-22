@@ -3,12 +3,9 @@
 // style things like spotify
 // make some configuration setting sliders not dropdowns?
 // work on contact/about the creators page
-// don't allow same song to ever be played twice in one game
-// split this component into smaller components, someday... especially toggle autoplay
-// make audio player more attractive
+// split this component into smaller components, someday...
 // game component UI is too cluttered
 // get rid of artists scroll bar
-// change back button when viewing records
 // make game over page better, option to view stats, right vs wrong and show answers etc
 // tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
 // make custom audio player
