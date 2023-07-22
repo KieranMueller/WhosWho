@@ -1,24 +1,24 @@
 .nav {
     width: 100vw;
-    height: 60px;
+    height: 10vh;
     background: var(--spotify-btn);
-    position: fixed;
-}
-
-.nav * {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 4px;
 }
 
-.nav button {
-    position: fixed;
-    top: 15px;
+.title-div {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin: 20px;
+}
+
+.btn {
+    position: absolute;
     right: 20px;
     border-radius: 10px;
     padding: 5px 15px;
-    text-align: center;
     border: none;
     outline: none;
     color: var(--spotify-background);
@@ -26,45 +26,36 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 740px) {
-    .title {
-        position: fixed;
-        top: 0;
-        left: 20px;
+.creators2 {
+    display: none;
+}
+
+@media screen and (max-width: 760px) {
+    .nav {
+        justify-content: flex-start;
     }
 }
 
-@media screen and (max-width: 580px) {
-    .title {
+@media screen and (max-width: 600px) {
+    .creators1 {
+        display: none;
+    }
+
+    .creators2 {
+        display: block;
+    }
+
+    .p1 {
         font-size: 14px;
     }
-
-    .creators-btn {
-        scale: 0.8;
-    }
 }
 
-@media screen and (max-width: 515px) {
-    .title {
-        font-size: 10px;
-        top: 8px;
-        left: 20px;
-    }
-
-    .creators-btn {
-        scale: 0.7;
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .title {
+@media screen and (max-width: 500px) {
+    .title-div {
         flex-direction: column;
-        top: 0;
     }
-}
 
-@media screen and (max-width: 300px) {
-    .creators-btn {
-        scale: 0.6;
+    .nav {
+        height: 12vh;
     }
 }

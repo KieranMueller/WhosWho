@@ -2,7 +2,7 @@
 <div class="container" [ngClass]="{ 'light-mode': !isDarkMode }">
     <div *ngIf="authLoading || configLoading">Loading...</div>
     <div *ngIf="!authLoading && !configLoading">
-        <p>Genre</p>
+        <p class="title">Genre</p>
         <p class="description">
             Select the specific genre of music (e.g., rock, pop, hip-hop) you
             want to play in the game
@@ -19,7 +19,7 @@
         </select>
         <br />
         <br />
-        <p>Number of Songs</p>
+        <p class="title">Number of Songs</p>
         <p class="description">
             Specify the number of songs provided as hints per round
         </p>
@@ -32,7 +32,7 @@
         </select>
         <br />
         <br />
-        <p>Number of Artists</p>
+        <p class="title">Number of Artists</p>
         <p class="description">
             Select the number of artists you must choose between for each round
         </p>
@@ -45,7 +45,7 @@
         </select>
         <br />
         <br />
-        <p>
+        <p class="title">
             Select the maximum number of incorrect guesses allowed before Game
             Over
         </p>
