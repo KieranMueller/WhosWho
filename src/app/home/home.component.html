@@ -72,6 +72,9 @@
             [disabled]="selectedGenre === ''">
             Go to game>
         </button>
+        <p class="genre-warning" *ngIf="selectedGenre === ''">
+            Must Select Genre
+        </p>
     </div>
     <div class="logo-div">
         <p>Powered by</p>
