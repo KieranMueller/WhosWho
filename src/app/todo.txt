@@ -1,0 +1,25 @@
+// add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
+// make correct or incorrect icon appear over image when clicked instead of below it
+// style things like spotify
+// make some configuration setting sliders not dropdowns?
+// work on contact/about the creators page
+// don't allow same song to ever be played twice in one game
+// split this component into smaller components, someday... especially toggle autoplay
+// make audio player more attractive
+// game component UI is too cluttered
+// get rid of artists scroll bar
+// change back button when viewing records
+// make game over page better, option to view stats, right vs wrong and show answers etc
+// are correct artists still in the beginning often?
+// tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
+// make custom audio player
+// mobile routing issue, showing page not found instead of custom modal - netlify
+// figure out query string to get more tracks to select from, and more artists per genre?
+// light mode artist card background not turning red or green when selecting choice
+// highest wrong streak isn't working
+// error message 'must choose genre' if none selected, on disabled button?
+// make home page stretch to bottom of screen
+// add play again button? restart same game configs
+// add quick start and/or random game, load random configs
+// might be able to include null songs in available songs since i am doing separate fetch to get their top 10 tracks anyway, might get more artists
+// clean up code! 
