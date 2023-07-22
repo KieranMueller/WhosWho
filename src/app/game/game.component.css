@@ -197,15 +197,22 @@
     justify-content: center;
 }
 
-.score-div {
-    margin-top: 15px;
+.score-round-div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
 }
 
 .score-el {
     background-color: var(--spotify-green);
-    color: black;
+    color: var(--spotify-background);
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.round-el {
     padding: 2px 10px;
     border-radius: 10px;
 }
@@ -397,6 +404,10 @@ audio::-webkit-media-controls-panel {
 
     audio {
         scale: 0.8;
+    }
+
+    .artist-btn:hover {
+        scale: 1;
     }
 }
 

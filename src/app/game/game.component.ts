@@ -24,12 +24,12 @@ export class GameComponent implements OnInit, OnDestroy {
     correctArtistName: string = ''
     isWrong: boolean = false
     totalScore: number = 0
-    totalElapsed: number = -1
+    totalElapsed: number = 0
     isAutoplay: boolean = true
     songsArr: Array<any> = []
     wrongCounter: number = 0
     isError: boolean = false
-    redirectTime: number = 3000
+    redirectTime: number = 2000
     countdown: any = this.redirectTime / 1000
     songIndex: number = 0
     nextDisabled: boolean = false
@@ -41,6 +41,7 @@ export class GameComponent implements OnInit, OnDestroy {
     wrongStreak: number = 0
     isDarkMode: boolean = true
     artistIds: Array<any> = []
+    numWrongInRound: number = 0
 
     constructor(
         private http: HttpClient,
@@ -160,6 +161,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.songIndex = 0
         this.prevDisabled = true
         this.nextDisabled = false
+        this.numWrongInRound = 0
         this.previousCorrectArtistName = this.correctArtistName
         this.songsArr = []
         this.artistIds = []
@@ -167,28 +169,46 @@ export class GameComponent implements OnInit, OnDestroy {
         this.isCorrect = false
         this.isWrong = false
         this.guessed = false
-        this.totalElapsed++
-        if (this.totalElapsed - this.totalScore != this.wrongCounter) {
-            this.livesRemaining.pop()
-            this.wrongCounter++
-        }
     }
 
     checkArtistClicked(name: any): void {
-        this.guessed = true
+        this.isViewingRecords = false
         if (name === this.correctArtistName) {
+            this.guessed = true
             this.isCorrect = true
-            this.totalScore++
+            this.handleScoring()
+            this.totalElapsed++
             if (this.totalScore > this.highScore)
                 this.highScore = this.totalScore
             this.scoreTracker.push(1)
+            setTimeout(() => {
+                this.getSongs()
+            }, 100)
         } else {
             this.isWrong = true
+            this.numWrongInRound++
+            setTimeout(() => {
+                this.isWrong = false
+            }, 400)
             this.scoreTracker.push(0)
+            this.livesRemaining.pop()
         }
-        setTimeout(() => {
-            this.getSongs()
-        }, 100)
+    }
+
+    handleScoring() {
+        let scoreBefore = this.totalScore
+        let multiplier = 1
+        if (this.artists.length >= 6) multiplier = 2.3
+        else if (this.artists.length > 4) multiplier = 1.9
+        else if (this.artists.length > 2) multiplier = 1.3
+        else if (this.artists.length <= 2) multiplier = 1
+        if (this.service.numSongs === 1) multiplier += 3
+        else if (this.service.numSongs < 4) multiplier += 1.5
+        if (this.numWrongInRound === 0) this.totalScore += 1000 * multiplier
+        else if (this.numWrongInRound < 3) this.totalScore += 500 * multiplier
+        else if (this.numWrongInRound < 6) this.totalScore += 200 * multiplier
+        else this.totalScore += 50 * multiplier
+        let score = this.totalScore - scoreBefore
     }
 
     calculateStreaks() {
@@ -225,7 +245,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     getUrl(): string {
         let message =
-            `I correctly guessed ${this.totalScore} ${this.selectedGenre} artists out of ${this.totalElapsed}` +
+            `I just got ${this.totalScore} points guessing ${this.selectedGenre} artists` +
             ` playing WhosWho! See if you can beat my score! https://spotify-whos-who.netlify.app/` +
             ` %23WhosWho %23GuessTheArtist %23Spotify`
         return `https://twitter.com/intent/tweet?text=${message}`

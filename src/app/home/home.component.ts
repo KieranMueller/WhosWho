@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
     genres: String[] = ['House', 'Alternative', 'J-Rock', 'R&B']
     songs: number[] = [1, 2, 3, 4, 5, 6, 7, 8]
-    artists: number[] = [2, 3, 4, 5, 6, 7, 8]
+    artists: number[] = [2, 3, 4, 5, 6]
     guesses: String[] = ['easy', 'medium', 'hard']
     selectedGenre: String = ''
     selectedSong: number = 1
