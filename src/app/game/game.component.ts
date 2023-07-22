@@ -9,33 +9,6 @@ import {
 import { GeneralService } from '../general.service'
 import { Router } from '@angular/router'
 
-// add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
-// make correct or incorrect icon appear over image when clicked instead of below it
-// style things like spotify
-// make some configuration setting sliders not dropdowns?
-// work on contact/about the creators page
-// don't allow same song to ever be played twice in one game
-// split this component into smaller components, someday... especially toggle autoplay
-// make audio player more attractive
-// game component UI is too cluttered
-// get rid of artists scroll bar
-// add settings page (option to view album covers instead of artist pics?)
-// change back button when viewing records
-// make game over page better, option to view stats, right vs wrong and show answers etc
-// might be able to remove while loop from handle songs method
-// I keep getting the same songs first from artists, randomize the songs
-// tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
-// make custom audio player
-// mobile routing issue, showing page not found instead of custom modal
-// fix share as tweet content
-// figure out query string to get more tracks to select from, and more artists per genre?
-// light mode artist card background not turning red or green when selecting choice
-// highest wrong streak isn't working
-// error message 'must choose genre' if none selected, on disabled button?
-// make home page stretch to bottom of screen
-// add play again button? restart same game configs
-// add quick start and/or random game, load random configs
-
 @Component({
     selector: 'app-game',
     templateUrl: './game.component.html',
@@ -44,20 +17,15 @@ import { Router } from '@angular/router'
 export class GameComponent implements OnInit, OnDestroy {
     livesRemaining: Array<number> = []
     selectedGenre: string = ''
-    availableSongs: Array<any> = []
-    randomIndex: number = 0
     artists: Array<any> = []
     isCorrect: boolean = false
     guessed: boolean = false
     previousCorrectArtistName: string = ''
     correctArtistName: string = ''
-    correctArtistData: any = {}
     isWrong: boolean = false
-    hitPlay: boolean = false
     totalScore: number = 0
     totalElapsed: number = -1
     isAutoplay: boolean = true
-    numSongs: number = 1
     songsArr: Array<any> = []
     wrongCounter: number = 0
     isError: boolean = false
@@ -72,6 +40,7 @@ export class GameComponent implements OnInit, OnDestroy {
     rightStreak: number = 0
     wrongStreak: number = 0
     isDarkMode: boolean = true
+    artistIds: Array<any> = []
 
     constructor(
         private http: HttpClient,
@@ -80,14 +49,11 @@ export class GameComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnDestroy(): void {
-        this.getSongs().unsubscribe()
-        this.handleSongs('').unsubscribe()
         this.calculateStreaks()
         this.saveLocalStorage()
     }
 
     ngOnInit(): void {
-        this.numSongs = this.service.numSongs
         this.selectedGenre = this.service.selectedGenre
         this.isDarkMode = this.service.isDarkMode
         for (let i = 0; i < this.service.guessAmount; i++)
@@ -96,8 +62,8 @@ export class GameComponent implements OnInit, OnDestroy {
         this.getSongs()
     }
 
-    getSongs() {
-        return this.http
+    getSongs(): void {
+        this.http
             .get(
                 `https://api.spotify.com/v1/search?q=genre%3A${this.service.selectedGenre}&type=track&limit=50&include_external=audio`,
                 { headers: { Authorization: `Bearer ${this.service.token}` } }
@@ -105,66 +71,89 @@ export class GameComponent implements OnInit, OnDestroy {
             .subscribe({
                 next: (data: any) => {
                     this.resetStuff()
-                    for (let song of data.tracks.items)
-                        if (song.preview_url != null)
-                            this.availableSongs.push(song)
-                    if (this.availableSongs.length === 0) this.redirectHome()
-                    this.randomIndex = Math.floor(
-                        Math.random() * (this.availableSongs.length - 1)
-                    )
-                    if (
-                        this.availableSongs[this.randomIndex].artists[0]
-                            .name === this.previousCorrectArtistName
-                    )
-                        this.randomIndex += 1
-                    this.correctArtistName =
-                        this.availableSongs[this.randomIndex].artists[0].name
-                    this.correctArtistData =
-                        this.availableSongs[this.randomIndex]
-                    this.handleSongs(this.correctArtistData.artists[0].id)
-                    this.handleArtists(this.service.numArtists)
+                    let i = 0
+                    let j = 0
+                    while (i < this.service.numArtists) {
+                        let randomIndex = Math.floor(
+                            Math.random() * data.tracks.items.length
+                        )
+                        if (
+                            !this.artistIds.includes(
+                                data.tracks.items[randomIndex].artists[0].id
+                            )
+                        ) {
+                            this.artistIds.push(
+                                data.tracks.items[randomIndex].artists[0].id
+                            )
+                            i++
+                        }
+                        j++
+                        if (j === 50) this.redirectHome()
+                    }
+                    if (this.artistIds.length === 0) this.redirectHome()
+                    this.handleSongs([...this.artistIds])
                 },
                 error: e => {
                     console.log(e)
-                    this.isError = true
                     this.redirectHome()
                 },
             })
     }
 
-    handleSongs(artistId: string) {
-        return this.http
-            .get(
-                `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`,
-                {
-                    headers: { Authorization: `Bearer ${this.service.token}` },
-                }
-            )
-            .subscribe({
-                next: (obj: any) => {
-                    let randomTempTracks: Array<any> = []
-                    for (let track of obj.tracks)
-                        if (track.preview_url != null)
-                            randomTempTracks.splice(
-                                Math.floor(
-                                    Math.random() * randomTempTracks.length
-                                ),
-                                0,
-                                track
-                            )
-                    for (let i = 0; i < this.numSongs; i++)
-                        this.songsArr.splice(
-                            Math.floor(Math.random() * this.songsArr.length),
+    handleSongs(artistIds: Array<string>) {
+        let foundRightArtist = false
+        for (let i = 0; i < artistIds.length; i++) {
+            this.http
+                .get(
+                    `https://api.spotify.com/v1/artists/${artistIds[i]}/top-tracks?market=US`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.service.token}`,
+                        },
+                    }
+                )
+                .subscribe({
+                    next: (data: any) => {
+                        let validCount = 0
+                        if (!foundRightArtist)
+                            for (let track of data.tracks)
+                                if (
+                                    track.preview_url != null &&
+                                    this.previousCorrectArtistName !==
+                                        track.album.artists[0].name
+                                )
+                                    validCount++
+                        if (validCount >= this.service.numSongs) {
+                            foundRightArtist = true
+                            this.correctArtistName =
+                                data.tracks[0].album.artists[0].name
+                            let tempSongsArr: any = []
+                            for (let track of data.tracks)
+                                if (track.preview_url != null)
+                                    tempSongsArr.splice(
+                                        Math.floor(
+                                            Math.random() * tempSongsArr.length
+                                        ),
+                                        0,
+                                        track
+                                    )
+                            for (let i = 0; i < this.service.numSongs; i++)
+                                this.songsArr.push(tempSongsArr[i])
+                        }
+                        this.artists.splice(
+                            Math.floor(Math.random() * this.artists.length),
                             0,
-                            randomTempTracks[i]
+                            data.tracks[
+                                Math.floor(Math.random() * data.tracks.length)
+                            ]
                         )
-                },
-                error: e => {
-                    console.log(e)
-                    this.isError = true
-                    this.redirectHome()
-                },
-            })
+                    },
+                    error: e => {
+                        console.log(e)
+                        this.redirectHome()
+                    },
+                })
+        }
     }
 
     resetStuff(): void {
@@ -173,58 +162,16 @@ export class GameComponent implements OnInit, OnDestroy {
         this.nextDisabled = false
         this.previousCorrectArtistName = this.correctArtistName
         this.songsArr = []
+        this.artistIds = []
         this.artists = []
-        this.availableSongs = []
         this.isCorrect = false
         this.isWrong = false
         this.guessed = false
-        this.hitPlay = true
         this.totalElapsed++
         if (this.totalElapsed - this.totalScore != this.wrongCounter) {
             this.livesRemaining.pop()
             this.wrongCounter++
         }
-    }
-
-    handleArtists(num: number = 2): void {
-        let artistNameArr: Array<string> = []
-        artistNameArr.push(
-            this.availableSongs[this.randomIndex].artists[0].name
-        )
-        this.pushArtist(this.availableSongs[this.randomIndex].artists[0].id)
-        let i = 0
-        while (i < num - 1) {
-            let randomIndex = Math.floor(
-                Math.random() * this.availableSongs.length
-            )
-            if (
-                !artistNameArr.includes(
-                    this.availableSongs[randomIndex].artists[0].name
-                )
-            ) {
-                artistNameArr.push(
-                    this.availableSongs[randomIndex].artists[0].name
-                )
-                this.pushArtist(this.availableSongs[randomIndex].artists[0].id)
-                i++
-            }
-        }
-    }
-
-    pushArtist(id: string): void {
-        this.http
-            .get(`https://api.spotify.com/v1/artists/${id}`, {
-                headers: { Authorization: `Bearer ${this.service.token}` },
-            })
-            .subscribe({
-                next: data => {
-                    this.artists.splice(
-                        Math.floor(Math.random() * this.artists.length + 1),
-                        0,
-                        data
-                    )
-                },
-            })
     }
 
     checkArtistClicked(name: any): void {

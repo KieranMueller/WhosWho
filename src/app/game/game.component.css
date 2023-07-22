@@ -159,7 +159,8 @@
     height: 180px;
     width: 180px;
     object-fit: cover;
-    margin: 10px;
+    margin: 2px;
+    border-radius: 10px;
 }
 
 .image-container {
@@ -188,14 +189,6 @@
 
 .artist-btn:hover {
     scale: 1.02;
-}
-
-.correct-guess {
-    background-color: var(--spotify-green);
-}
-
-.wrong-guess {
-    background-color: rgb(249, 106, 106);
 }
 
 .win-div {
@@ -336,6 +329,14 @@ audio::-webkit-media-controls-panel {
 .light-mode-btns {
     background-color: var(--spotify-background);
     color: var(--spotify-text-primary);
+}
+
+.correct-guess {
+    background-color: var(--spotify-green);
+}
+
+.wrong-guess {
+    background-color: rgb(249, 106, 106);
 }
 
 /* end toggle switch css */

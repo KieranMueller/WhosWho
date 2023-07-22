@@ -113,7 +113,7 @@
             class="btn"
             (click)="getSongs()"
             [ngClass]="{ 'light-mode-btns': !isDarkMode }">
-            {{ hitPlay ? 'Skip Track' : 'Play' }}
+            Skip Track
         </button>
         <label class="toggle">
             <span class="toggle-label">Autoplay</span>
@@ -126,7 +126,7 @@
                 class="toggle-switch"
                 [ngClass]="{ 'toggle-switch-light': !isDarkMode }"></div>
         </label>
-        <div class="song-div" *ngIf="availableSongs.length > 0">
+        <div class="song-div" *ngIf="songsArr.length > 0">
             <audio
                 [autoplay]="isAutoplay"
                 controls
@@ -161,9 +161,12 @@
                 'light-mode-btns': !isDarkMode
             }"
             [disabled]="guessed"
-            (click)="checkArtistClicked(artist.name)">
-            <img [src]="artist.images[0].url" [alt]="artist.name" class="img" />
-            <p>{{ artist.name }}</p>
+            (click)="checkArtistClicked(artist.album.artists[0].name)">
+            <img
+                [src]="artist.album.images[0].url"
+                [alt]="artist.album.artists[0].name"
+                class="img" />
+            <p>{{ artist.album.artists[0].name }}</p>
         </button>
     </div>
     <div class="score-div">
