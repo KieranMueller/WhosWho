@@ -3,9 +3,8 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100%;
     padding: 0 10px;
-    padding-top: 90px;
+    padding-top: 30px;
 }
 
 .light-mode {
@@ -27,11 +26,12 @@
 }
 
 .logo-div {
-    position: static;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 10px;
+    margin-top: 30px;
 }
 
 .logo {
@@ -59,4 +59,14 @@ button:enabled {
 
 button:disabled {
     opacity: 0.5;
+}
+
+@media screen and (max-width: 430px) {
+    .title {
+        font-size: 22px;
+    }
+
+    .description {
+        font-size: 20px;
+    }
 }
