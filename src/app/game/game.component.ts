@@ -171,6 +171,16 @@ export class GameComponent implements OnInit, OnDestroy {
         this.guessed = false
     }
 
+    playAgain() {
+        this.resetStuff()
+        this.ngOnDestroy()
+        this.totalElapsed = 0
+        this.totalScore = 0
+        this.highScore = 0
+        this.scoreTracker = []
+        this.ngOnInit()
+    }
+
     checkArtistClicked(name: any): void {
         this.isViewingRecords = false
         if (name === this.correctArtistName) {

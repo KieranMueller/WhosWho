@@ -10,18 +10,12 @@
 // get rid of artists scroll bar
 // change back button when viewing records
 // make game over page better, option to view stats, right vs wrong and show answers etc
-// are correct artists still in the beginning often?
 // tons of mobile fixes to make (text-color, sizes etc, delete hover effects etc, colors)
 // make custom audio player
 // mobile routing issue, showing page not found instead of custom modal - netlify
 // figure out query string to get more tracks to select from, and more artists per genre?
-// light mode artist card background not turning red or green when selecting choice
-// highest wrong streak isn't working
-// error message 'must choose genre' if none selected, on disabled button?
-// add play again button? restart same game configs
+// highest wrong streak isn't working?
 // add quick start and/or random game, load random configs
-// might be able to include null songs in available songs since i am doing separate fetch to get their top 10 tracks anyway, might get more artists
 // clean up code! 
 // media queries for height too, landscape mode
-// make it so selecting a wrong artist doesn't start a new round, you lose a life and keep guessing from what is on screen
 // still having no song show up with two artists sometimes
