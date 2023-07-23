@@ -133,11 +133,10 @@ a {
     width: 70vw;
     display: flex;
     margin: 10px;
-    justify-content: center;
     align-items: center;
     border: 1px solid grey;
     border-radius: 40px;
-    padding: 0;
+    padding: 10px;
 }
 
 .top-strip * {
@@ -369,7 +368,7 @@ audio::-webkit-media-controls-panel {
     .artist-btn {
         margin: 3px;
         width: 130px;
-        height: 160px;
+        height: 130px;
     }
 
     .artist-btn img {

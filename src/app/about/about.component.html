@@ -4,16 +4,17 @@
             <img [src]="avatarUrl1" alt="Avatar 1" class="avatar" />
             <p>{{ name1 }}</p>
             <br />
-            <div class="bio">{{ bio1 }}</div>
+            <p class="bio">{{ bio1 }}</p>
             <button class="btn git" (click)="git1()">GitHub</button>
         </div>
         <div class="avatar-container">
             <img [src]="avatarUrl2" alt="Avatar 2" class="avatar" />
             <p>{{ name2 }}</p>
             <br />
-            <div class="bio">{{ bio2 }}</div>
+            <p class="bio">{{ bio2 }}</p>
             <button class="btn git" (click)="git2()">GitHub</button>
         </div>
     </div>
     <button class="btn back" routerLink="">Back</button>
+    <button class="btn back" (click)="viewRepo()">View Site Repository</button>
 </div>
