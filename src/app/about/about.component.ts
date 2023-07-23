@@ -62,4 +62,8 @@ export class AboutComponent implements OnInit {
     git2() {
         window.open('https://github.com/NIcoleR1234', '_blank')
     }
+
+    viewRepo() {
+        window.open('https://github.com/KieranMueller/WhosWho', '_blank')
+    }
 }

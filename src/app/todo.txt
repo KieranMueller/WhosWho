@@ -1,9 +1,5 @@
-// add a point system instead? weighting mechanism, more points for less clicks on songs etc, difficulty
 // make correct or incorrect icon appear over image when clicked instead of below it
-// style things like spotify
-// make some configuration setting sliders not dropdowns?
 // work on contact/about the creators page
-// split this component into smaller components, someday...
 // game component UI is too cluttered
 // get rid of artists scroll bar
 // make game over page better, option to view stats, right vs wrong and show answers etc
@@ -16,3 +12,4 @@
 // clean up code! 
 // media queries for height too, landscape mode
 // still having no song show up with two artists sometimes
+// fix about creators page, github api not fetching
