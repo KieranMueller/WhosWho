@@ -1,1 +1,3 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/384c3691-d019-4858-af98-4b3f3fe5ba9b/deploy-status)](https://app.netlify.com/sites/spotify-whos-who/deploys)
+
 Hey there! This is a fun musical guessing game created with Angular and the free Spotify API. Saved in local storage, you can set your preferred genre, how many songs to use as clues per round, how many artists to guess from, and the difficulty/number of incorrect guesses before game over. Scoring is weighted, the fewer songs to choose from per round, more points. The more artists to guess from, more points. Guessing correctly first try, versus a few wrong guesses first, more points. Enjoy!
